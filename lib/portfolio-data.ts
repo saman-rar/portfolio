@@ -9,8 +9,7 @@ export const profileData = {
   location: "San Francisco, California, USA",
   social: {
     github: "https://github.com/johndoe",
-    twitter: "https://twitter.com/johndoe",
-    instagram: "https://instagram.com/johndoe",
+    linkedin: "https://linkedin.com/in/johndoe",
   },
 }
 

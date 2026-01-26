@@ -1,5 +1,5 @@
-import { Mail, Phone, Calendar, MapPin } from "lucide-react"
-import { Github, Twitter, Instagram, Send } from "lucide-react"
+import { Mail, Phone, Calendar, MapPin, Linkedin } from "lucide-react"
+import { Github, Send } from "lucide-react"
 import { profileData } from "@/lib/portfolio-data"
 
 interface ProfileSidebarProps {
@@ -10,7 +10,7 @@ export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
   return (
     <aside className="w-full lg:w-80 bg-card rounded-2xl border border-border p-4 md:p-6 lg:sticky lg:top-8 h-fit">
       {/* Profile Image */}
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center pt-4 md:pt-6 pb-4 md:pb-6">
         <div className="relative w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-6">
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent/20 via-accent/5 to-transparent animate-pulse-slow" />
           <div className="absolute inset-[2px] rounded-3xl bg-secondary overflow-hidden">
@@ -55,6 +55,40 @@ export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
               className="text-sm text-foreground hover:text-accent transition-colors"
             >
               {data.phone}
+            </a>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
+            <Github className="w-5 h-5 text-accent" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs text-muted-foreground uppercase mb-1">GitHub</p>
+            <a
+              href={data.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-foreground hover:text-accent transition-colors"
+            >
+              {data.social.github.replace("https://github.com/", "")}
+            </a>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
+            <Linkedin className="w-5 h-5 text-accent" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs text-muted-foreground uppercase mb-1">LinkedIn</p>
+            <a
+              href={data.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-foreground hover:text-accent transition-colors"
+            >
+              {data.social.linkedin.replace("https://linkedin.com/in/", "")}
             </a>
           </div>
         </div>
@@ -109,13 +143,13 @@ export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
           <Github className="w-5 h-5" />
         </a>
         <a
-          href={data.social.twitter}
+          href={data.social.linkedin}
           target="_blank"
           rel="noopener noreferrer"
           className="w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center"
-          aria-label="Twitter"
+          aria-label="LinkedIn"
         >
-          <Twitter className="w-5 h-5" />
+          <Linkedin className="w-5 h-5" />
         </a>
         <a
           href={`https://t.me/${data.telegram}`}
@@ -125,15 +159,6 @@ export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
           aria-label="Telegram"
         >
           <Send className="w-5 h-5" />
-        </a>
-        <a
-          href={data.social.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center"
-          aria-label="Instagram"
-        >
-          <Instagram className="w-5 h-5" />
         </a>
       </div>
     </aside>
