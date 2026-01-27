@@ -4,9 +4,10 @@ import { profileData } from "@/lib/portfolio-data"
 
 interface ProfileSidebarProps {
   data?: typeof profileData
+  locale?: string
 }
 
-export function ProfileSidebar({ data = profileData }: ProfileSidebarProps) {
+export function ProfileSidebar({ data = profileData, locale = "en" }: ProfileSidebarProps) {
   return (
     <aside className="w-full lg:w-80 bg-card rounded-2xl border border-border p-4 md:p-6 lg:sticky lg:top-8 h-fit">
       {/* Profile Image */}
