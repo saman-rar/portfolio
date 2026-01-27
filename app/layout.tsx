@@ -35,11 +35,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: { locale?: string }
 }>) {
+  const locale = params?.locale || "en"
+  const isRTL = locale === "fa"
+  
   return (
-    <html lang="ar" dir="rtl">
+    <html lang={locale} dir={isRTL ? "rtl" : "ltr"}>
       <body className={`${vazirmatn.className} font-sans antialiased`}>
         {children}
         <Analytics />
