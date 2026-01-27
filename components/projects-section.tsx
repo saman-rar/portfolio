@@ -1,4 +1,4 @@
-import { ProjectCard } from './project-card'
+import { ProjectCard } from './project-card';
 
 const projects = [
   {
@@ -43,19 +43,19 @@ const projects = [
     tags: ['React', 'OpenWeather API', 'Mapbox', 'Tailwind'],
     image: '/weather-app-interface.png',
   },
-]
+];
 
 export function ProjectsSection() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-      <h2 className="mb-16 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+    <section className='mx-auto max-w-7xl px-6 py-24 lg:px-8'>
+      <h2 className='mb-16 text-3xl font-bold tracking-tight text-foreground md:text-4xl'>
         Recent Projects
       </h2>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
         {projects.map((project) => (
           <ProjectCard key={project.title} {...project} />
         ))}
       </div>
     </section>
-  )
+  );
 }
