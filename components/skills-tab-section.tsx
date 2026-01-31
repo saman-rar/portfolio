@@ -1,33 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X, ChevronLeft, ChevronRight, ExternalLink, Eye } from 'lucide-react';
 import { resumeData, portfolioData } from '@/lib/portfolio-data';
-
-interface SkillsTabSectionProps {
-  data?: typeof resumeData;
-}
+import { Prisma } from '@/lib/generated/prisma/client';
 
 interface SkillModalProps {
-  skill: (typeof resumeData.skills)[0] & {
-    description?: string;
-    projects?: (typeof portfolioData.projects)[0][];
-  };
+  skill: Skill;
   isOpen: boolean;
   onClose: () => void;
-  categories: string[];
 }
 
-function SkillModal({ skill, isOpen, onClose, categories }: SkillModalProps) {
+function SkillModal({ skill, isOpen, onClose }: SkillModalProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeFilter, setActiveFilter] = useState('all');
 
   if (!isOpen) return null;
 
-  const filteredProjects =
-    activeFilter === 'all'
-      ? skill.projects || []
-      : (skill.projects || []).filter((p) => p.category === activeFilter);
+  const filteredProjects = skill.projects;
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % filteredProjects.length);
@@ -35,7 +25,7 @@ function SkillModal({ skill, isOpen, onClose, categories }: SkillModalProps) {
 
   const prevSlide = () => {
     setCurrentSlide(
-      (prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length
+      (prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length,
     );
   };
 
@@ -52,14 +42,14 @@ function SkillModal({ skill, isOpen, onClose, categories }: SkillModalProps) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className='absolute top-4 left-4 md:top-6 md:left-6 w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center z-10'
+          className='absolute top-4 right-4 md:top-6 md:right-6 rtl:left-4 rtl:md:right6 w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center z-10'
           aria-label='Close modal'
         >
           <X className='w-5 h-5' />
         </button>
 
         {/* Title */}
-        <h2 className='text-3xl md:text-4xl font-bold text-foreground mb-4 pl-12'>
+        <h2 className='text-3xl md:text-4xl font-bold text-foreground mb-4'>
           {skill.name}
         </h2>
         <div className='w-16 h-1 bg-accent rounded-full mb-6' />
@@ -73,25 +63,6 @@ function SkillModal({ skill, isOpen, onClose, categories }: SkillModalProps) {
         {/* Filter Buttons */}
         {filteredProjects.length > 0 && (
           <>
-            <div className='flex flex-wrap gap-2 md:gap-3 mb-6'>
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => {
-                    setActiveFilter(category);
-                    setCurrentSlide(0);
-                  }}
-                  className={`px-4 md:px-5 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-medium capitalize transition-all ${
-                    activeFilter === category
-                      ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/20'
-                      : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-
             {/* Carousel */}
             {filteredProjects.length > 0 && (
               <div className='space-y-6'>
@@ -100,12 +71,12 @@ function SkillModal({ skill, isOpen, onClose, categories }: SkillModalProps) {
                   onClick={() =>
                     window.open(
                       filteredProjects[currentSlide]?.liveUrl,
-                      '_blank'
+                      '_blank',
                     )
                   }
                   className='relative bg-secondary rounded-xl md:rounded-2xl border border-border overflow-hidden cursor-pointer group'
                 >
-                  <div className='aspect-[16/9] overflow-hidden bg-background relative'>
+                  <div className='aspect-video overflow-hidden bg-background relative'>
                     <img
                       src={
                         filteredProjects[currentSlide]?.image ||
@@ -116,7 +87,7 @@ function SkillModal({ skill, isOpen, onClose, categories }: SkillModalProps) {
                     />
                   </div>
 
-                  <div className='absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/20 opacity-0 hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4 md:p-6'>
+                  <div className='absolute inset-0 bg-linear-to-t from-background via-background/90 to-background/20 opacity-0 hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4 md:p-6'>
                     <h3 className='text-xl md:text-2xl font-bold text-foreground mb-4'>
                       {filteredProjects[currentSlide]?.title}
                     </h3>
@@ -148,11 +119,6 @@ function SkillModal({ skill, isOpen, onClose, categories }: SkillModalProps) {
                         Visit
                       </a>
                     </div>
-                  </div>
-
-                  {/* Category Badge */}
-                  <div className='absolute top-3 left-3 md:top-4 md:left-4 px-2.5 md:px-3 py-1 md:py-1.5 bg-background/90 backdrop-blur-sm border border-border rounded-lg text-xs font-medium text-accent capitalize'>
-                    {filteredProjects[currentSlide]?.category}
                   </div>
                 </div>
 
@@ -191,25 +157,41 @@ function SkillModal({ skill, isOpen, onClose, categories }: SkillModalProps) {
   );
 }
 
-export function SkillsTabSection({ data = resumeData }: SkillsTabSectionProps) {
-  const [selectedSkill, setSelectedSkill] = useState<
-    | ((typeof resumeData.skills)[0] & {
-        description?: string;
-        projects?: (typeof portfolioData.projects)[0][];
-      })
-    | null
-  >(null);
+type Skill = Prisma.SkillGetPayload<{
+  include: { category: true; projects: true };
+}>;
 
-  // Create enriched skills with project associations
-  const enrichedSkills = data.skills.map((skill) => ({
-    ...skill,
-    description: `Specialized in ${skill.name} with a strong focus on creating high-quality, maintainable solutions. I have delivered multiple projects showcasing expertise in this domain.`,
-    projects: portfolioData.projects.slice(0, 4), // Demo: assign some projects to each skill
-  }));
+type Category = Prisma.CategoryGetPayload<{
+  include: { projects: { include: { techs: true; categories: true } } };
+}>;
+
+export function SkillsTabSection() {
+  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  useEffect(() => {
+    fetch(`/api/categories`)
+      .then((res) => res.json())
+      .then((data: Category[]) => setCategories(data))
+      .catch((error) => {
+        throw new Error();
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`/api/skills/${activeFilter}`)
+      .then((res) => res.json())
+      .then((data: Skill[]) => setSkills(data))
+      .catch((error) => {
+        throw new Error(error);
+      });
+  }, [activeFilter]);
 
   return (
     <>
-      <div className='space-y-8 md:space-y-10'>
+      <div className='space-y-8 md:space-y-10 min-h-[54vh]'>
         <div>
           <h2 className='text-2xl md:text-3xl font-bold text-foreground mb-4'>
             My Skills
@@ -217,29 +199,62 @@ export function SkillsTabSection({ data = resumeData }: SkillsTabSectionProps) {
           <div className='w-31 h-1 bg-accent rounded-full mb-6' />
         </div>
 
-        <div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4'>
-          {enrichedSkills.map((skill, index) => (
-            <div
-              key={index}
-              onClick={() => setSelectedSkill(skill)}
-              className='cursor-pointer group p-4 md:p-6 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent hover:shadow-lg hover:shadow-accent/10 transition-all'
+        {/* Filter Buttons */}
+        <div className='pb-3 flex overflow-x-auto gap-2 md:gap-3'>
+          <button
+            onClick={() => setActiveFilter('all')}
+            className={`px-4 md:px-5  py-3 md:py-4 rounded-xl text-xs md:text-sm font-medium capitalize transition-all text-nowrap ${
+              activeFilter === 'all'
+                ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/20'
+                : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80'
+            }`}
+          >
+            {'All'}
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setActiveFilter(category.name)}
+              className={`px-4 md:px-5  py-3 md:py-4 rounded-xl text-xs md:text-sm font-medium capitalize transition-all text-nowrap ${
+                activeFilter === category.name
+                  ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/20'
+                  : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80'
+              }`}
             >
-              <div className='flex justify-between mb-4 items-center'>
-                <span className='text-sm md:text-base font-semibold text-foreground group-hover:text-accent transition-colors'>
-                  {skill.name}
-                </span>
-                <span className='text-xs md:text-sm text-muted-foreground group-hover:text-accent transition-colors font-medium'>
-                  {skill.level}%
-                </span>
-              </div>
-              <div className='h-2 bg-background rounded-full overflow-hidden'>
-                <div
-                  className='h-full bg-accent rounded-full transition-all duration-1000 ease-out'
-                  style={{ width: `${skill.level}%` }}
-                />
-              </div>
-            </div>
+              {category.name}
+            </button>
           ))}
+        </div>
+
+        <div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4'>
+          {skills.map((skill, index) => {
+            const isLast = index === skills.length - 1;
+            const isOdd = skills.length % 2 === 1;
+            return (
+              <div
+                key={index}
+                onClick={() => setSelectedSkill(skill)}
+                className={`cursor-pointer group p-4 md:p-6 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent hover:shadow-lg hover:shadow-accent/10 transition-all ${isOdd && isLast ? 'col-span-2' : null}`}
+              >
+                <div className='flex justify-between mb-4 items-center'>
+                  <span className='text-sm md:text-base font-semibold text-foreground group-hover:text-accent transition-colors'>
+                    {skill.name}
+                  </span>
+                  <span className='text-xs md:text-sm text-muted-foreground group-hover:text-accent transition-colors font-medium'>
+                    {skill.yearsOfExperience === '+0'
+                      ? 'Learning'
+                      : `${skill.yearsOfExperience} years`}
+                  </span>
+                </div>
+                <div className='h-2 bg-background rounded-full overflow-hidden'>
+                  <div
+                    className='h-full bg-accent rounded-full transition-all duration-1000 ease-out'
+                    style={{ width: `${skill.level}%` }}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -248,7 +263,6 @@ export function SkillsTabSection({ data = resumeData }: SkillsTabSectionProps) {
           skill={selectedSkill}
           isOpen={!!selectedSkill}
           onClose={() => setSelectedSkill(null)}
-          categories={portfolioData.categories}
         />
       )}
     </>

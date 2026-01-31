@@ -13,7 +13,7 @@ export function ProfileSidebar({
   locale = 'en',
 }: ProfileSidebarProps) {
   return (
-    <aside className='w-full lg:w-80 bg-card rounded-2xl border border-border p-4 md:p-6 lg:sticky lg:top-8 h-[100vh-48px]'>
+    <aside className='w-full lg:w-80 bg-card rounded-2xl border border-border p-4 md:p-6 lg:sticky lg:top-8 lg:h-[calc(100vh-96px)]'>
       {/* Profile Image */}
       <div className='flex flex-col items-center'>
         <div className='relative w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-6'>

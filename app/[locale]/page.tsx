@@ -9,13 +9,7 @@ import { SkillsTabSection } from '@/components/skills-tab-section';
 import { ContactSection } from '@/components/contact-section-new';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageToggle } from '@/components/language-toggle';
-import {
-  profileData,
-  aboutData,
-  resumeData,
-  portfolioData,
-  contactData,
-} from '@/lib/portfolio-data';
+import { profileData, aboutData, resumeData } from '@/lib/portfolio-data';
 
 interface LocalePageProps {
   params: { locale: string };
@@ -31,7 +25,7 @@ export default function Home({ params }: LocalePageProps) {
 
   return (
     <div className='min-h-screen bg-background p-3 sm:p-4 md:p-6 lg:p-12'>
-      <div className='fixed top-4 left-4 md:top-6 md:left-6 z-50 flex flex-col gap-3'>
+      <div className='fixed top-2 right-2 md:top-3 md:right-3 z-50 flex flex-col gap-3'>
         <ThemeToggle />
         <LanguageToggle locale={locale} />
       </div>
@@ -48,7 +42,7 @@ export default function Home({ params }: LocalePageProps) {
                 <button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium capitalize transition-colors whitespace-nowrap flex-shrink-0 ${
+                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium capitalize transition-colors whitespace-nowrap shrink-0 ${
                     activeSection === section.id
                       ? 'text-foreground bg-accent/10'
                       : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
@@ -64,15 +58,9 @@ export default function Home({ params }: LocalePageProps) {
               {activeSection === 'resume' && (
                 <ResumeSection data={resumeData} />
               )}
-              {activeSection === 'portfolio' && (
-                <PortfolioSection data={portfolioData} />
-              )}
-              {activeSection === 'skills' && (
-                <SkillsTabSection data={resumeData} />
-              )}
-              {activeSection === 'contact' && (
-                <ContactSection data={contactData} />
-              )}
+              {activeSection === 'portfolio' && <PortfolioSection />}
+              {activeSection === 'skills' && <SkillsTabSection />}
+              {activeSection === 'contact' && <ContactSection />}
             </div>
           </main>
         </div>
