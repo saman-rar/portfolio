@@ -4,6 +4,8 @@ import { use, useState } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { ProjectsSection } from '@/components/admin/projects';
 import { SkillsSection } from '@/components/admin/skills';
+import { LogOut } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 
 export default function Home({
   searchParams,
@@ -25,6 +27,12 @@ export default function Home({
     <div className='min-h-screen bg-background p-3 sm:p-4 md:p-6 lg:p-12'>
       <div className='fixed top-2 right-2 md:top-3 md:right-3 z-50 flex flex-col gap-3'>
         <ThemeToggle />
+        <button
+          onClick={() => signOut()}
+          className='w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors shadow-lg text-accent cursor-pointer'
+        >
+          <LogOut />
+        </button>
       </div>
 
       <div className='mx-auto max-w-7xl'>

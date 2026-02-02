@@ -426,7 +426,7 @@ function EditModal({
           }),
         });
       } else {
-        res = await fetch(`/api/projects`, {
+        res = await fetch(`/api/skills`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

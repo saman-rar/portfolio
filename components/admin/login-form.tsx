@@ -1,3 +1,5 @@
+import { signIn } from '@/lib/auth';
+
 export function LoginForm() {
   return (
     <div className='space-y-8 md:space-y-10 pb-10'>
@@ -11,7 +13,13 @@ export function LoginForm() {
         </div>
       </div>
       <div className='mx-auto flex justify-center gap-3 md:gap-4 p-4 md:p-10 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors w-150'>
-        <form action='' className='flex flex-col gap-10'>
+        <form
+          action={async (formData) => {
+            'use server';
+            await signIn('credentials', formData);
+          }}
+          className='flex flex-col gap-10'
+        >
           <div className='flex flex-col w-100 gap-2'>
             <label htmlFor='usename'>Usename</label>
             <input
@@ -31,7 +39,10 @@ export function LoginForm() {
             />
           </div>
 
-          <button className='bg-blue-600 py-2 rounded-lg text-white dark:text-black text-lg cursor-pointer hover:opacity-85'>
+          <button
+            type='submit'
+            className='bg-accent py-2 rounded-lg text-white dark:text-black text-lg cursor-pointer hover:opacity-85'
+          >
             Login
           </button>
         </form>
