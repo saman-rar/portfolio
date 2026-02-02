@@ -13,12 +13,12 @@ export function ProfileSidebar({
   locale = 'en',
 }: ProfileSidebarProps) {
   return (
-    <aside className='w-full lg:w-80 bg-card rounded-2xl border border-border p-4 md:p-6 lg:sticky lg:top-8 lg:h-[calc(100vh-96px)]'>
+    <aside className='w-full flex flex-col lg:w-80 bg-card rounded-2xl border border-border p-4 md:p-6 lg:sticky lg:top-8 lg:h-[calc(100vh-96px)]'>
       {/* Profile Image */}
       <div className='flex flex-col items-center'>
         <div className='relative w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-6'>
           <div className='absolute inset-0 rounded-3xl from-accent/20 via-accent/5 to-transparent animate-pulse-slow' />
-          <div className='absolute inset-[2px] rounded-3xl bg-secondary overflow-hidden'>
+          <div className='absolute inset-0.5 rounded-3xl bg-secondary overflow-hidden'>
             <Image
               fill
               src={data.avatar || '/placeholder.svg'}
@@ -40,9 +40,9 @@ export function ProfileSidebar({
       <div className='h-px bg-border my-4 md:my-6' />
 
       {/* Contact Info */}
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 md:gap-4'>
+      <div className='grid flex-1 grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 md:gap-4'>
         <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0'>
+          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
             <Mail className='w-5 h-5 text-accent' />
           </div>
           <div className='flex-1 min-w-0'>
@@ -59,7 +59,7 @@ export function ProfileSidebar({
         </div>
 
         <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0'>
+          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
             <Phone className='w-5 h-5 text-accent' />
           </div>
           <div className='flex-1'>
@@ -76,7 +76,7 @@ export function ProfileSidebar({
         </div>
 
         <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0'>
+          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
             <Github className='w-5 h-5 text-accent' />
           </div>
           <div className='flex-1'>
@@ -95,7 +95,7 @@ export function ProfileSidebar({
         </div>
 
         <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0'>
+          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
             <Linkedin className='w-5 h-5 text-accent' />
           </div>
           <div className='flex-1'>
@@ -114,7 +114,7 @@ export function ProfileSidebar({
         </div>
 
         <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0'>
+          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
             <Send className='w-5 h-5 text-accent' />
           </div>
           <div className='flex-1'>
@@ -133,7 +133,7 @@ export function ProfileSidebar({
         </div>
 
         <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0'>
+          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
             <Calendar className='w-5 h-5 text-accent' />
           </div>
           <div className='flex-1'>

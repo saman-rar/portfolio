@@ -1,9 +1,6 @@
 'use client';
 
-import type React from 'react';
-
 import { Github, Linkedin, Mail, Phone, Send } from 'lucide-react';
-import { useState } from 'react';
 import { contactData } from '@/lib/portfolio-data';
 
 interface ContactSectionProps {
@@ -20,9 +17,13 @@ export function ContactSection({ data = contactData }: ContactSectionProps) {
         <div className='w-26.5 h-1 bg-accent rounded-full mb-6' />
       </div>
 
-      <div className='grid grid-cols-1 gap-3'>
+      <a
+        href={`mailto:${data.email}`}
+        target='_blank'
+        className='grid grid-cols-1 gap-3'
+      >
         <div className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'>
-          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors'>
+          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors'>
             <Mail className='w-5 h-5 md:w-6 md:h-6 text-accent' />
           </div>
           <div className='min-w-0'>
@@ -38,8 +39,12 @@ export function ContactSection({ data = contactData }: ContactSectionProps) {
           </div>
         </div>
 
-        <div className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'>
-          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors'>
+        <a
+          href={`tel:${data.phone.replace(/\s/g, '')}`}
+          target='_blank'
+          className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'
+        >
+          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors'>
             <Phone className='w-5 h-5 md:w-6 md:h-6 text-accent' />
           </div>
           <div>
@@ -53,10 +58,14 @@ export function ContactSection({ data = contactData }: ContactSectionProps) {
               {data.phone}
             </a>
           </div>
-        </div>
+        </a>
 
-        <div className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'>
-          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors'>
+        <a
+          href={data.github.link}
+          target='_blank'
+          className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'
+        >
+          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors'>
             <Github className='w-5 h-5 md:w-6 md:h-6 text-accent' />
           </div>
           <div>
@@ -70,10 +79,14 @@ export function ContactSection({ data = contactData }: ContactSectionProps) {
               {data.github.name}
             </a>
           </div>
-        </div>
+        </a>
 
-        <div className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'>
-          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors'>
+        <a
+          href={data.linkedin.link}
+          target='_blank'
+          className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'
+        >
+          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors'>
             <Linkedin className='w-5 h-5 md:w-6 md:h-6 text-accent' />
           </div>
           <div>
@@ -87,10 +100,14 @@ export function ContactSection({ data = contactData }: ContactSectionProps) {
               {data.linkedin.name}
             </a>
           </div>
-        </div>
+        </a>
 
-        <div className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'>
-          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors'>
+        <a
+          href={`https://t.me/${data.telegram}`}
+          target='_blank'
+          className='flex items-center gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'
+        >
+          <div className='w-12 h-12 md:w-14 md:h-14 bg-accent/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors'>
             <Send className='w-5 h-5 md:w-6 md:h-6 text-accent' />
           </div>
           <div>
@@ -106,8 +123,8 @@ export function ContactSection({ data = contactData }: ContactSectionProps) {
               {data.telegram}
             </a>
           </div>
-        </div>
-      </div>
+        </a>
+      </a>
     </div>
   );
 }

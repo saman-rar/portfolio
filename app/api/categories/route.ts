@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
     }>[] = await prisma.category.findMany({
       include: {
         projects: { include: { techs: true, categories: true } },
+        skills: { include: { projects: true, category: true } },
       },
     });
 

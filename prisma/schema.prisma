@@ -37,6 +37,9 @@ model Category {
 model Skill {
   id Int @id @default(autoincrement())
   name String @unique
+  icon String
+  description_en String
+  description_fa String
   categoryId Int
   category Category @relation(fields: [categoryId], references: [id])
   level Int

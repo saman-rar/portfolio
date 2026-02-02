@@ -1,8 +1,6 @@
 'use client';
 
 import { Dispatch, SetStateAction, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Check } from 'lucide-react';
 
 const transitionProps = {
   type: 'spring',

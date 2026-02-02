@@ -1,5 +1,4 @@
 import { PrismaClient, Prisma } from '@/lib/generated/prisma/client';
-import { portfolioData } from '@/lib/portfolio-data';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import 'dotenv/config';
 
@@ -19,7 +18,6 @@ function getStatus(years: string) {
 
 async function main() {
   console.log('Seeding categories...');
-  // درست کردن دسته‌ها بدون where
   await prisma.category.createMany({
     data: [
       { name: 'Front-End' },
@@ -37,11 +35,28 @@ async function main() {
   console.log('Seeding skills...');
   const skillsData = [
     {
-      name: 'HTML5 & CSS',
+      name: 'HTML5',
       level: 100,
       years: '3',
       projects: ['GameStation', 'Wedding'],
       category: 'Front-End',
+      icon: 'HTML5Icon',
+      description_en:
+        'HTML5 is the standard web markup language for building modern, semantic, and browser-compatible page structures.',
+      description_fa:
+        'HTML5 زبان استاندارد نشانه‌گذاری وب برای ساخت ساختار صفحات مدرن، معناگرا و سازگار با مرورگرهای امروزی است.',
+    },
+    {
+      name: 'CSS',
+      level: 100,
+      years: '3',
+      projects: ['GameStation', 'Wedding'],
+      category: 'Front-End',
+      icon: 'CSSIcon',
+      description_en:
+        'CSS is the styling language used to design layouts, visual appearance, and responsive user interfaces on the web.',
+      description_fa:
+        'CSS زبان استایل‌دهی وب برای طراحی ظاهر، چیدمان و واکنش‌گرایی رابط‌های کاربری مدرن است.',
     },
     {
       name: 'Sass',
@@ -49,20 +64,35 @@ async function main() {
       years: '3',
       projects: ['Asia Janebi Shop', 'Task Manager'],
       category: 'Front-End',
+      icon: 'SassIcon',
+      description_en:
+        'A CSS preprocessor that adds variables, nesting, and modularity to write more maintainable stylesheets.',
+      description_fa:
+        'پیش‌پردازنده CSS برای نوشتن استایل‌های ماژولار، قابل نگهداری و مقیاس‌پذیر.',
     },
     {
-      name: 'Javascript',
+      name: 'JavaScript',
       level: 80,
       years: '+2',
       projects: ['Task Manager'],
       category: 'Front-End',
+      icon: 'JavaScriptIcon',
+      description_en:
+        'A versatile programming language that enables dynamic, interactive, and event-driven behavior on the web.',
+      description_fa:
+        'زبان برنامه‌نویسی پویا برای ایجاد تعامل، منطق و رفتارهای داینامیک در وب.',
     },
     {
-      name: 'Typescript',
+      name: 'TypeSript',
       level: 80,
       years: '+2',
       projects: ['Payload Digital Market'],
       category: 'Front-End',
+      icon: 'TypeScriptIcon',
+      description_en:
+        'A strongly typed superset of JavaScript that improves code quality, scalability, and developer productivity.',
+      description_fa:
+        'نسخه تایپ‌دار جاوااسکریپت برای افزایش کیفیت کد و توسعه‌پذیری پروژه‌ها.',
     },
     {
       name: 'React.js',
@@ -70,6 +100,11 @@ async function main() {
       years: '2',
       projects: ['Asia Janebi Shop'],
       category: 'Front-End',
+      icon: 'ReactIcon',
+      description_en:
+        'A JavaScript library for building fast, reusable, and component-based user interfaces.',
+      description_fa:
+        'کتابخانه‌ای برای ساخت رابط‌های کاربری سریع، کامپوننت‌محور و قابل استفاده مجدد.',
     },
     {
       name: 'Next.js',
@@ -77,20 +112,35 @@ async function main() {
       years: '2',
       projects: ['Payload Digital Market', 'E-Commerce'],
       category: 'Front-End',
+      icon: 'NextIcon',
+      description_en:
+        'A React framework for production-ready applications with server rendering, routing, and performance optimization.',
+      description_fa:
+        'فریمورکی مبتنی بر React برای ساخت اپلیکیشن‌های بهینه با رندر سمت سرور و روتینگ پیشرفته.',
     },
     {
-      name: 'React State Managements',
+      name: 'Zustand, Redux, React Context',
       level: 65,
       years: '2',
       projects: ['Payload Digitla Market', 'Asia Janebi Shop'],
       category: 'Front-End',
+      icon: 'ReduxIcon',
+      description_en:
+        'Libraries and patterns for managing application state efficiently in complex React applications.',
+      description_fa:
+        'ابزارها و الگوهایی برای مدیریت بهینه state در اپلیکیشن‌های پیچیده React.',
     },
     {
-      name: 'Tailwind Css',
+      name: 'Tailwind CSS',
       level: 65,
       years: '2',
       projects: ['Payload Digital Market', 'E-Commerce'],
       category: 'Front-End',
+      icon: 'TailwindIcon',
+      description_en:
+        'A utility-first CSS framework for rapidly building custom and responsive user interfaces.',
+      description_fa:
+        'فریمورک CSS مبتنی بر utility برای طراحی سریع رابط‌های کاربری سفارشی و واکنش‌گرا.',
     },
     {
       name: 'Git & Github',
@@ -98,6 +148,11 @@ async function main() {
       years: '2',
       projects: [],
       category: 'Tools',
+      icon: 'GitIcon',
+      description_en:
+        'Version control tools for tracking changes, collaborating, and managing code efficiently.',
+      description_fa:
+        'ابزارهای کنترل نسخه برای مدیریت کد، همکاری تیمی و پیگیری تغییرات.',
     },
     {
       name: 'RESTful APIs',
@@ -105,6 +160,11 @@ async function main() {
       years: '+1',
       projects: ['Github'],
       category: 'Back-End',
+      icon: 'RESTfulAPIsIcon',
+      description_en:
+        'An architectural style for designing scalable and stateless APIs using standard HTTP methods.',
+      description_fa:
+        'سبک معماری برای طراحی APIهای مقیاس‌پذیر و بدون state بر پایه HTTP.',
     },
     {
       name: 'MongoDb & Mongoose',
@@ -112,13 +172,35 @@ async function main() {
       years: '+1',
       projects: [],
       category: 'Back-End',
+      icon: 'MongoDBIcon',
+      description_en:
+        'A NoSQL database and ODM for modeling and managing flexible, document-based data.',
+      description_fa:
+        'پایگاه داده NoSQL به‌همراه ODM برای مدیریت داده‌های داکیومنت‌محور و منعطف.',
     },
     {
-      name: 'PostgreSQL & Prisma',
+      name: 'SQL',
       level: 50,
       years: '+1',
       projects: [],
       category: 'Back-End',
+      icon: 'SQLIcon',
+      description_en:
+        'CSS زبان استایل‌دهی وب برای طراحی ظاهر، چیدمان و واکنش‌گرایی رابط‌های کاربری مدرن است.',
+      description_fa:
+        'SQL زبان استاندارد کوئری برای مدیریت، بازیابی و دستکاری داده‌ها در پایگاه‌های داده رابطه‌ای است.',
+    },
+    {
+      name: 'Prisma',
+      level: 50,
+      years: '+1',
+      projects: [],
+      category: 'Back-End',
+      icon: 'PrismaIcon',
+      description_en:
+        'Prisma is a modern ORM that makes database access faster, safer, and more type-safe for developers.',
+      description_fa:
+        'Prisma یک ORM مدرن برای کار با پایگاه داده است که توسعه را سریع‌تر، ایمن‌تر و تایپ‌محور می‌کند.',
     },
     {
       name: 'Node.js',
@@ -126,6 +208,11 @@ async function main() {
       years: '1',
       projects: [],
       category: 'Back-End',
+      icon: 'NodeJsIcon',
+      description_en:
+        'A JavaScript runtime for building fast and scalable server-side applications.',
+      description_fa:
+        'محیط اجرای جاوااسکریپت برای ساخت اپلیکیشن‌های سمت سرور سریع و مقیاس‌پذیر.',
     },
     {
       name: 'Express.js',
@@ -133,6 +220,11 @@ async function main() {
       years: '+0',
       projects: [],
       category: 'Back-End',
+      icon: 'ExpressIcon',
+      description_en:
+        'A minimal and flexible Node.js framework for building web APIs and server applications.',
+      description_fa:
+        'فریمورک سبک و منعطف Node.js برای ساخت API و اپلیکیشن‌های وب.',
     },
     {
       name: 'Nest.js',
@@ -140,6 +232,11 @@ async function main() {
       years: '+0',
       projects: [],
       category: 'Back-End',
+      icon: 'NestIcon',
+      description_en:
+        'A progressive Node.js framework for building scalable, maintainable, and enterprise-grade applications.',
+      description_fa:
+        'فریمورک پیشرفته Node.js برای ساخت اپلیکیشن‌های ساخت‌یافته و مقیاس‌پذیر.',
     },
     {
       name: 'Payload CMS',
@@ -147,9 +244,13 @@ async function main() {
       years: '+0',
       projects: [],
       category: 'CMS',
+      icon: 'PayloadIcon',
+      description_en:
+        'A modern, headless CMS built with Node.js, offering full control over content and data models.',
+      description_fa:
+        'CMS هدلس مدرن مبتنی بر Node.js با کنترل کامل روی محتوا و مدل‌های داده.',
     },
   ];
-
   const skills = await Promise.all(
     skillsData.map((skill) =>
       prisma.skill.upsert({
@@ -157,6 +258,9 @@ async function main() {
         update: {},
         create: {
           name: skill.name,
+          description_fa: skill.description_fa,
+          description_en: skill.description_en,
+          icon: skill.icon,
           level: skill.level,
           yearsOfExperience: skill.years,
           status: getStatus(skill.years),
@@ -171,7 +275,7 @@ async function main() {
     {
       title: 'Task Manager',
       categories: ['Front-End'],
-      techs: ['Javascript'],
+      techs: ['JavaScript'],
       tag: 'Javascript',
       image: '/task-management-interface.png',
       description: 'Collaborative task manager with real-time update.',

@@ -15,19 +15,13 @@ export function ResumeSection({
     <div className='space-y-8 md:space-y-10 min-h-[54vh]'>
       <div>
         <h2 className='text-2xl md:text-3xl font-bold text-foreground mb-4'>
-          Resume
+          Education
         </h2>
-        <div className='w-27 h-1 bg-accent rounded-full mb-6' />
+        <div className='w-32 h-1 bg-accent rounded-full mb-6' />
       </div>
 
       {/* Education */}
       <div>
-        <div className='flex items-center gap-2 md:gap-3 mb-6'>
-          <BookOpen className='w-5 h-5 md:w-6 md:h-6 text-accent' />
-          <h3 className='text-xl md:text-2xl font-bold text-foreground'>
-            Education
-          </h3>
-        </div>
         <div className='space-y-4'>
           {data.education.map((item, index) => (
             <div

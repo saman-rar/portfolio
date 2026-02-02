@@ -1,38 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { ProfileSidebar } from '@/components/profile-sidebar';
 import { AboutSection } from '@/components/about-section';
 import { ResumeSection } from '@/components/resume-section';
 import { PortfolioSection } from '@/components/portfolio-section';
 import { SkillsTabSection } from '@/components/skills-tab-section';
 import { ContactSection } from '@/components/contact-section-new';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { LanguageToggle } from '@/components/language-toggle';
 import { profileData, aboutData, resumeData } from '@/lib/portfolio-data';
 
 interface LocalePageProps {
   params: { locale: string };
+  searchParams: { section: string };
 }
 
-export default function Home({ params }: LocalePageProps) {
-  const [activeSection, setActiveSection] = useState('about');
-  const locale = params.locale || 'en';
+export default function Home({ params, searchParams }: LocalePageProps) {
+  //@ts-expect-error
+  const paramSection = use(searchParams).section;
+  const [activeSection, setActiveSection] = useState(paramSection || 'about');
 
   // Use English or Persian data based on locale
-  const translations =
-    locale === 'fa' ? getPerisanTranslations() : getEnglishTranslations();
+  const translations = getEnglishTranslations();
 
   return (
     <div className='min-h-screen bg-background p-3 sm:p-4 md:p-6 lg:p-12'>
-      <div className='fixed top-2 right-2 md:top-3 md:right-3 z-50 flex flex-col gap-3'>
-        <ThemeToggle />
-        <LanguageToggle locale={locale} />
-      </div>
-
       <div className='mx-auto max-w-7xl'>
         <div className='flex flex-col lg:flex-row-reverse gap-3 sm:gap-4 md:gap-6'>
-          <ProfileSidebar data={profileData} locale={locale} />
+          <ProfileSidebar data={profileData} locale={'en'} />
 
           {/* Main Content */}
           <main className='flex-1 bg-card rounded-xl md:rounded-2xl border border-border overflow-hidden'>
@@ -41,7 +35,9 @@ export default function Home({ params }: LocalePageProps) {
               {translations.sections.map((section) => (
                 <button
                   key={section.id}
-                  onClick={() => setActiveSection(section.id)}
+                  onClick={() => {
+                    setActiveSection(section.id);
+                  }}
                   className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium capitalize transition-colors whitespace-nowrap shrink-0 ${
                     activeSection === section.id
                       ? 'text-foreground bg-accent/10'
@@ -55,7 +51,7 @@ export default function Home({ params }: LocalePageProps) {
 
             <div className='p-4 sm:p-5 md:p-6 lg:p-8'>
               {activeSection === 'about' && <AboutSection data={aboutData} />}
-              {activeSection === 'resume' && (
+              {activeSection === 'education' && (
                 <ResumeSection data={resumeData} />
               )}
               {activeSection === 'portfolio' && <PortfolioSection />}
@@ -73,7 +69,7 @@ function getEnglishTranslations() {
   return {
     sections: [
       { id: 'about', label: 'about' },
-      { id: 'resume', label: 'resume' },
+      { id: 'education', label: 'Education' },
       { id: 'portfolio', label: 'portfolio' },
       { id: 'skills', label: 'skills' },
       { id: 'contact', label: 'contact' },

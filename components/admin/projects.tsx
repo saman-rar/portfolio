@@ -1,18 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Edit, ExternalLink, Eye, Trash, X } from 'lucide-react';
-import { portfolioData } from '@/lib/portfolio-data';
+import { Edit, PlusCircle, Trash, X } from 'lucide-react';
 import { Prisma } from '@/lib/generated/prisma/client';
 import Link from 'next/link';
-
-interface ProjectsSectionProps {
-  data?: typeof portfolioData;
-}
-
-// type Skill =Prisma.CategoryGetPayload<{
-//       include: { projects: { include: { techs: true } } };
-//     }>;
 
 type Category = Prisma.CategoryGetPayload<{
   include: { projects: { include: { techs: true; categories: true } } };
@@ -53,9 +44,14 @@ export function ProjectsSection() {
     <>
       <div className='space-y-6 md:space-y-8 min-h-[54vh]'>
         <div>
-          <h2 className='text-2xl md:text-3xl font-bold text-foreground mb-4'>
-            Projects
-          </h2>
+          <div className='flex justify-between items-center'>
+            <h2 className='text-2xl md:text-3xl font-bold text-foreground mb-4'>
+              Projects
+            </h2>
+            <Link href='/admin/dashboard/project/new'>
+              <PlusCircle className='scale-120 hover:text-accent' />
+            </Link>
+          </div>
           <div className='w-30 h-1 bg-accent rounded-full mb-6' />
         </div>
 
@@ -104,7 +100,7 @@ export function ProjectsSection() {
                 {/* Action Buttons */}
                 <div className='flex gap-2 md:gap-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75'>
                   <Link
-                    href={`/admin/projects/${project.id}`}
+                    href={`/admin/dashboard/project/${project.id}`}
                     className='flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-accent text-accent-foreground rounded-lg text-xs md:text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer'
                   >
                     <Edit className='w-3.5 h-3.5 md:w-4 md:h-4' />
@@ -164,7 +160,7 @@ function RemoveModal({ project, isOpen, onClose }: RemoveModalProps) {
     >
       <div className='absolute inset-0 bg-black/50 backdrop-blur-sm' />
       <div
-        className='relative aspect-video max-w-4xl max-h-[90vh] overflow-y-auto bg-card rounded-2xl border border-border p-6 md:p-8 animate-in fade-in zoom-in-95'
+        className='relative max-w-4xl max-h-[90vh] overflow-y-hidden bg-card rounded-2xl border border-border p-6 md:p-8 animate-in fade-in zoom-in-95'
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}

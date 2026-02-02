@@ -1,4 +1,3 @@
-import { Prisma } from '@/lib/generated/prisma/client';
 import { ExternalLink, Eye } from 'lucide-react';
 
 const ProtfolioCard = ({

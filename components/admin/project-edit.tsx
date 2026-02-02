@@ -8,6 +8,8 @@ import CuisineSelector from './selector';
 import { CheckCircle, Loader2, X } from 'lucide-react';
 import ProtfolioCard from '../portfolio-card';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type Category = Prisma.CategoryGetPayload<{
   include: { projects: { include: { techs: true; categories: true } } };
@@ -299,12 +301,17 @@ function EditModal({
 }: EditModalProps) {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<'success' | null>(null);
+  const router = useRouter();
 
   if (!isOpen) return null;
 
   const closeHandler = () => {
     onClose();
     setStatus(null);
+
+    if (projectId) {
+      router.refresh();
+    }
   };
 
   const uploadImage = async (file: File) => {
@@ -421,16 +428,28 @@ function EditModal({
               </p>
             </div>
           </div>
-          <button
-            onClick={closeHandler}
-            className='bg-accent w-full py-2 rounded-md cursor-pointer transition-all duration-100 ease-in-out hover:bg-accent/80'
-          >
-            {loading ? (
-              <Loader2 className='animate-spin w-6 h-6 mx-auto' />
-            ) : (
-              'Close'
-            )}
-          </button>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+            <Link
+              href='/admin/dashboard?section=projects'
+              className='bg-accent w-full py-2 rounded-md cursor-pointer transition-all duration-100 ease-in-out hover:bg-accent/80 flex justify-center items-center text-white'
+            >
+              {loading ? (
+                <Loader2 className='animate-spin w-6 h-6 mx-auto' />
+              ) : (
+                'Go To Projects'
+              )}
+            </Link>
+            <button
+              onClick={closeHandler}
+              className='bg-accent w-full py-2 rounded-md cursor-pointer transition-all duration-100 ease-in-out hover:bg-accent/80 text-white'
+            >
+              {loading ? (
+                <Loader2 className='animate-spin w-6 h-6 mx-auto' />
+              ) : (
+                'Close'
+              )}
+            </button>
+          </div>
         </div>
       </div>
     );
