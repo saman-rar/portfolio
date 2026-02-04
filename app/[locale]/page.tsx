@@ -17,17 +17,21 @@ interface LocalePageProps {
 export default function Home({ params, searchParams }: LocalePageProps) {
   //@ts-expect-error
   const paramSection = use(searchParams).section;
+  //@ts-expect-error
+  const { locale } = use(params);
   const [activeSection, setActiveSection] = useState(paramSection || 'about');
 
   // Use English or Persian data based on locale
-  const translations = getEnglishTranslations();
+  const translations =
+    locale === 'en' ? getEnglishTranslations() : getPerisanTranslations();
 
   return (
-    <div className='min-h-screen bg-background p-3 sm:p-4 md:p-6 lg:p-12'>
+    <div
+      dir={locale === 'en' ? 'ltr' : 'rtl'}
+      className='min-h-screen bg-background p-3 sm:p-4 md:p-6 lg:p-12'
+    >
       <div className='mx-auto max-w-7xl'>
         <div className='flex flex-col lg:flex-row-reverse gap-3 sm:gap-4 md:gap-6'>
-          <ProfileSidebar data={profileData} locale={'en'} />
-
           {/* Main Content */}
           <main className='flex-1 bg-card rounded-xl md:rounded-2xl border border-border overflow-hidden'>
             {/* Navigation */}
@@ -50,7 +54,9 @@ export default function Home({ params, searchParams }: LocalePageProps) {
             </nav>
 
             <div className='p-4 sm:p-5 md:p-6 lg:p-8'>
-              {activeSection === 'about' && <AboutSection data={aboutData} />}
+              {activeSection === 'about' && (
+                <AboutSection data={aboutData} locale={locale} />
+              )}
               {activeSection === 'education' && (
                 <ResumeSection data={resumeData} />
               )}
@@ -59,6 +65,7 @@ export default function Home({ params, searchParams }: LocalePageProps) {
               {activeSection === 'contact' && <ContactSection />}
             </div>
           </main>
+          <ProfileSidebar data={profileData} locale={locale} />
         </div>
       </div>
     </div>
@@ -80,11 +87,11 @@ function getEnglishTranslations() {
 function getPerisanTranslations() {
   return {
     sections: [
-      { id: 'about', label: '' },
-      { id: 'resume', label: '' },
-      { id: 'portfolio', label: '' },
-      { id: 'skills', label: '' },
-      { id: 'contact', label: '' },
+      { id: 'about', label: 'درباره من' },
+      { id: 'education', label: 'تحصیلات' },
+      { id: 'portfolio', label: 'پروژه ها' },
+      { id: 'skills', label: 'مهارتها' },
+      { id: 'contact', label: 'تماس' },
     ],
   };
 }
