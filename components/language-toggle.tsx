@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface LanguageToggleProps {
   locale: string;
@@ -8,10 +8,17 @@ interface LanguageToggleProps {
 
 export function LanguageToggle({ locale }: LanguageToggleProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const section = useSearchParams().get('section');
 
   const toggleLanguage = () => {
     const newLocale = locale === 'en' ? 'fa' : 'en';
-    router.push(`/${newLocale}`);
+    if (section) {
+      router.push(`/${newLocale}?section=${section}`);
+    } else {
+      const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
+      router.push(newPath);
+    }
   };
 
   return (

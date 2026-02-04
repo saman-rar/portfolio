@@ -15,7 +15,7 @@ type Category = Prisma.CategoryGetPayload<{
   include: { projects: { include: { techs: true; categories: true } } };
 }>;
 
-export function SkillsTabSection({ locale }: { locale: string }) {
+export function SkillsTabSection({ locale }: { locale: 'en' | 'fa' }) {
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
   const [skills, setSkills] = useState<Skill[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -47,7 +47,7 @@ export function SkillsTabSection({ locale }: { locale: string }) {
             <h2 className='text-2xl md:text-3xl font-bold text-foreground'>
               {locale === 'en' ? 'Skills' : 'مهارت ها'}
             </h2>
-            <Button href='/en/techs'>
+            <Button href={`/${locale}/techs`}>
               {locale === 'en' ? 'All Techs' : 'نمایش همه'}
             </Button>
           </div>
@@ -94,6 +94,7 @@ export function SkillsTabSection({ locale }: { locale: string }) {
             console.log(isLast, isOdd);
             return (
               <SkillCard
+                locale={locale}
                 skill={skill}
                 isOddOrLast={isLast && isOdd}
                 setSelectedSkill={setSelectedSkill}
@@ -105,6 +106,7 @@ export function SkillsTabSection({ locale }: { locale: string }) {
 
       {selectedSkill && (
         <SkillModal
+          locale={locale}
           skill={selectedSkill}
           isOpen={!!selectedSkill}
           onClose={() => setSelectedSkill(null)}

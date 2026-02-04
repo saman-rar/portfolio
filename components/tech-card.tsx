@@ -6,6 +6,7 @@ interface TechCardProps {
   category: string;
   yearsOfExperience: string;
   description: string;
+  locale?: 'en' | 'fa';
 }
 
 const TechCard = ({
@@ -14,6 +15,7 @@ const TechCard = ({
   category = 'Front-End',
   yearsOfExperience = 'Learning',
   description = 'Progressive framework for web development.',
+  locale = 'en',
 }: TechCardProps) => {
   const Icon = SkillIcons[icon];
   return (
@@ -31,7 +33,11 @@ const TechCard = ({
               {category}
             </p>
           </div>
-          <p className='text-muted-foreground text-sm'>{yearsOfExperience}</p>
+          <p className='text-muted-foreground text-sm'>
+            {locale === 'en'
+              ? `${yearsOfExperience} years`
+              : `${yearsOfExperience} سال`}
+          </p>
           <p className='text-sm p-1.5 max-w-95'>{description}</p>
           <p></p>
         </div>

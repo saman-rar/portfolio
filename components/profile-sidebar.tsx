@@ -12,6 +12,8 @@ export function ProfileSidebar({
   data = profileData,
   locale = 'en',
 }: ProfileSidebarProps) {
+  const translations =
+    locale === 'en' ? englishTranslations : persianTranslations;
   return (
     <aside className='w-full flex flex-col lg:w-80 bg-card rounded-2xl border border-border p-4 md:p-6 lg:sticky lg:top-8 lg:h-[calc(100vh-96px)]'>
       {/* Profile Image */}
@@ -28,7 +30,7 @@ export function ProfileSidebar({
           </div>
         </div>
 
-        <h1 className='text-xl md:text-2xl font-bold text-foreground mb-1'>
+        <h1 className='text-xl md:text-2xl font-bold text-foreground mb-2'>
           {data.name}
         </h1>
         <p className='text-xs md:text-sm text-muted-foreground bg-secondary px-3 md:px-4 py-1 rounded-lg'>
@@ -47,7 +49,7 @@ export function ProfileSidebar({
           </div>
           <div className='flex-1 min-w-0'>
             <p className='text-xs text-muted-foreground uppercase mb-1'>
-              Email
+              {translations.email}
             </p>
             <a
               href={`mailto:${data.email}`}
@@ -64,9 +66,10 @@ export function ProfileSidebar({
           </div>
           <div className='flex-1'>
             <p className='text-xs text-muted-foreground uppercase mb-1'>
-              Phone
+              {translations.phone}
             </p>
             <a
+              dir='ltr'
               href={`tel:${data.phone.replace(/\s/g, '')}`}
               className='text-sm text-foreground hover:text-accent transition-colors'
             >
@@ -81,7 +84,7 @@ export function ProfileSidebar({
           </div>
           <div className='flex-1'>
             <p className='text-xs text-muted-foreground uppercase mb-1'>
-              GitHub
+              {translations.github}
             </p>
             <a
               href={data.social.github}
@@ -100,7 +103,7 @@ export function ProfileSidebar({
           </div>
           <div className='flex-1'>
             <p className='text-xs text-muted-foreground uppercase mb-1'>
-              LinkedIn
+              {translations.linkedin}
             </p>
             <a
               href={data.social.linkedin}
@@ -119,7 +122,7 @@ export function ProfileSidebar({
           </div>
           <div className='flex-1'>
             <p className='text-xs text-muted-foreground uppercase mb-1'>
-              Telegram
+              {translations.telegram}
             </p>
             <a
               href={`https://t.me/${data.telegram}`}
@@ -138,7 +141,7 @@ export function ProfileSidebar({
           </div>
           <div className='flex-1'>
             <p className='text-xs text-muted-foreground uppercase mb-1'>
-              Birthday
+              {translations.birthday}
             </p>
             <p className='text-sm text-foreground'>{data.birthday}</p>
           </div>
@@ -178,3 +181,20 @@ export function ProfileSidebar({
     </aside>
   );
 }
+
+const englishTranslations = {
+  email: 'Email',
+  phone: 'Phone',
+  github: 'GitHub',
+  linkedin: 'LinkedIn',
+  telegram: 'Telegram',
+  birthday: 'Birthday',
+};
+const persianTranslations = {
+  email: 'ایمیل',
+  phone: 'تلفن',
+  github: 'گیتهاب',
+  linkedin: 'لینکدین',
+  telegram: 'تلگرام',
+  birthday: 'تاریخ تولد',
+};

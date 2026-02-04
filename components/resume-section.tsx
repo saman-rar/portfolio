@@ -1,14 +1,13 @@
-import { BookOpen, Briefcase } from 'lucide-react';
-import { resumeData } from '@/lib/portfolio-data';
+import { educationData } from '@/lib/portfolio-data';
 import { cn } from '@/lib/utils';
 
 interface ResumeSectionProps {
-  data?: typeof resumeData;
+  data?: typeof educationData;
   locale?: string;
 }
 
 export function ResumeSection({
-  data = resumeData,
+  data = educationData,
   locale = 'en',
 }: ResumeSectionProps) {
   const isRTL = locale === 'fa';

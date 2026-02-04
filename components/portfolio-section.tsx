@@ -46,7 +46,7 @@ export function PortfolioSection({ locale }: { locale: string }) {
           <h2 className='text-2xl md:text-3xl font-bold text-foreground'>
             {locale === 'en' ? 'Portfolio' : 'پروژه ها'}
           </h2>
-          <Button href='/en/projects'>
+          <Button href={`/${locale}/projects`}>
             {locale === 'en' ? 'All Projects' : 'نمایش همه'}
           </Button>
         </div>

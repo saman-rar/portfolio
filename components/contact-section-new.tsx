@@ -6,13 +6,15 @@ import { cn } from '@/lib/utils';
 
 interface ContactSectionProps {
   data?: typeof contactData;
-  locale: string;
+  locale: 'en' | 'fa';
 }
 
 export function ContactSection({
   data = contactData,
   locale,
 }: ContactSectionProps) {
+  const translations =
+    locale === 'en' ? englishTranslations : persianTranslations;
   return (
     <div className='space-y-6 md:space-y-8'>
       <div>
@@ -38,14 +40,11 @@ export function ContactSection({
           </div>
           <div className='min-w-0'>
             <h3 className='text-xs md:text-sm font-medium text-muted-foreground mb-1'>
-              Email
+              {translations.email}
             </h3>
-            <a
-              href={`mailto:${data.email}`}
-              className='text-sm md:text-base text-foreground hover:text-accent transition-colors font-medium truncate block'
-            >
+            <span className='text-sm md:text-base text-foreground hover:text-accent transition-colors font-medium truncate block'>
               {data.email}
-            </a>
+            </span>
           </div>
         </div>
 
@@ -59,14 +58,14 @@ export function ContactSection({
           </div>
           <div>
             <h3 className='text-xs md:text-sm font-medium text-muted-foreground mb-1'>
-              Phone
+              {translations.phone}
             </h3>
-            <a
-              href={`tel:${data.phone.replace(/\s/g, '')}`}
+            <span
+              dir='ltr'
               className='text-sm md:text-base text-foreground hover:text-accent transition-colors font-medium'
             >
               {data.phone}
-            </a>
+            </span>
           </div>
         </a>
 
@@ -80,14 +79,11 @@ export function ContactSection({
           </div>
           <div>
             <h3 className='text-xs md:text-sm font-medium text-muted-foreground mb-1'>
-              Github
+              {translations.github}
             </h3>
-            <a
-              href={data.github.link}
-              className='text-sm md:text-base text-foreground hover:text-accent transition-colors font-medium'
-            >
+            <span className='text-sm md:text-base text-foreground hover:text-accent transition-colors font-medium'>
               {data.github.name}
-            </a>
+            </span>
           </div>
         </a>
 
@@ -101,14 +97,11 @@ export function ContactSection({
           </div>
           <div>
             <h3 className='text-xs md:text-sm font-medium text-muted-foreground mb-1'>
-              Linkedin
+              {translations.linkedin}
             </h3>
-            <a
-              href={data.linkedin.link}
-              className='text-sm md:text-base text-foreground hover:text-accent transition-colors font-medium'
-            >
+            <span className='text-sm md:text-base text-foreground hover:text-accent transition-colors font-medium'>
               {data.linkedin.name}
-            </a>
+            </span>
           </div>
         </a>
 
@@ -122,19 +115,34 @@ export function ContactSection({
           </div>
           <div>
             <h3 className='text-xs md:text-sm font-medium text-muted-foreground mb-1'>
-              Telegram
+              {translations.telegram}
             </h3>
-            <a
-              href={`https://t.me/${data.telegram}`}
-              target='_blank'
+            <span
               rel='noopener noreferrer'
               className='text-sm md:text-base text-foreground hover:text-accent transition-colors font-medium'
             >
               {data.telegram}
-            </a>
+            </span>
           </div>
         </a>
       </a>
     </div>
   );
 }
+
+const englishTranslations = {
+  email: 'Email',
+  phone: 'Phone',
+  github: 'GitHub',
+  linkedin: 'LinkedIn',
+  telegram: 'Telegram',
+  birthday: 'Birthday',
+};
+const persianTranslations = {
+  email: 'ایمیل',
+  phone: 'تلفن',
+  github: 'گیتهاب',
+  linkedin: 'لینکدین',
+  telegram: 'تلگرام',
+  birthday: 'تاریخ تولد',
+};

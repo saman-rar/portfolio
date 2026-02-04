@@ -12,12 +12,14 @@ interface SkillModalProps {
   skill: Skill;
   isOpen: boolean;
   onClose: () => void;
+  locale?: 'en' | 'fa';
 }
 
 export default function SkillModal({
   skill,
   isOpen,
   onClose,
+  locale = 'en',
 }: SkillModalProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -48,7 +50,7 @@ export default function SkillModal({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className='absolute top-4 right-4 md:top-6 md:right-6 rtl:left-4 rtl:md:right6 w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center z-10'
+          className='absolute top-4 end-4 md:top-6 md:end-6 rtl:left-4 rtl:md:right6 w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center z-10'
           aria-label='Close modal'
         >
           <X className='w-5 h-5' />
@@ -62,8 +64,10 @@ export default function SkillModal({
 
         {/* Description */}
         <p className='text-base md:text-lg text-muted-foreground mb-8 leading-relaxed'>
-          {skill.description_en ||
-            `I have extensive experience with ${skill.name}, bringing professional expertise to every project.`}
+          {locale === 'en'
+            ? skill.description_en
+            : skill.description_fa ||
+              `I have extensive experience with ${skill.name}, bringing professional expertise to every project.`}
         </p>
 
         {/* Filter Buttons */}
@@ -130,7 +134,7 @@ export default function SkillModal({
 
                 {/* Carousel Controls */}
                 {filteredProjects.length > 1 && (
-                  <div className='relative'>
+                  <div dir='ltr' className='relative'>
                     <div className='flex items-center justify-between'>
                       <button
                         onClick={prevSlide}

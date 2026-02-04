@@ -33,12 +33,14 @@ interface SkillCardProps {
     }> | null>
   >;
   isOddOrLast?: boolean;
+  locale?: 'en' | 'fa';
 }
 
 const SkillCard = ({
   skill,
   setSelectedSkill,
   isOddOrLast,
+  locale = 'en',
 }: SkillCardProps) => {
   const clickHandler = (skill: Skill) => {
     if (setSelectedSkill) {
@@ -65,7 +67,9 @@ const SkillCard = ({
         <span className='text-xs md:text-sm text-muted-foreground group-hover:text-accent transition-colors font-medium'>
           {skill.yearsOfExperience === '+0'
             ? 'Learning'
-            : `${skill.yearsOfExperience} years`}
+            : locale === 'en'
+              ? `${skill.yearsOfExperience} years`
+              : `${skill.yearsOfExperience} سال`}
         </span>
       </div>
       <div className='h-2 bg-background rounded-full overflow-hidden'>
