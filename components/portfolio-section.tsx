@@ -13,7 +13,7 @@ type Project = Prisma.ProjectGetPayload<{
   include: { techs: true; categories: true };
 }>;
 
-export function PortfolioSection() {
+export function PortfolioSection({ locale }: { locale: string }) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [allProjects, setAllProjects] = useState<Project[]>([]);
   const [activeFilter, setActiveFilter] = useState<Category | 'all'>('all');
@@ -44,9 +44,11 @@ export function PortfolioSection() {
       <div>
         <div className='flex justify-between mb-4'>
           <h2 className='text-2xl md:text-3xl font-bold text-foreground'>
-            Portfolio
+            {locale === 'en' ? 'Portfolio' : 'پروژه ها'}
           </h2>
-          <Button href='/en/projects'>All Projects</Button>
+          <Button href='/en/projects'>
+            {locale === 'en' ? 'All Projects' : 'نمایش همه'}
+          </Button>
         </div>
         <div className='w-30 h-1 bg-accent rounded-full mb-6' />
       </div>

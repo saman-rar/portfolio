@@ -11,7 +11,6 @@ export function LanguageToggle({ locale }: LanguageToggleProps) {
 
   const toggleLanguage = () => {
     const newLocale = locale === 'en' ? 'fa' : 'en';
-    console.log(newLocale);
     router.push(`/${newLocale}`);
   };
 

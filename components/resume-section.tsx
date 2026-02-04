@@ -1,5 +1,6 @@
 import { BookOpen, Briefcase } from 'lucide-react';
 import { resumeData } from '@/lib/portfolio-data';
+import { cn } from '@/lib/utils';
 
 interface ResumeSectionProps {
   data?: typeof resumeData;
@@ -15,9 +16,14 @@ export function ResumeSection({
     <div className='space-y-8 md:space-y-10 min-h-[54vh]'>
       <div>
         <h2 className='text-2xl md:text-3xl font-bold text-foreground mb-4'>
-          Education
+          {locale === 'en' ? 'Education' : 'تحصیلات'}
         </h2>
-        <div className='w-32 h-1 bg-accent rounded-full mb-6' />
+        <div
+          className={cn('h-1 bg-accent rounded-full mb-6', {
+            'w-32': locale === 'en',
+            'w-28': locale === 'fa',
+          })}
+        />
       </div>
 
       {/* Education */}

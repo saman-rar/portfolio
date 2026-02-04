@@ -1,5 +1,6 @@
 import { PenTool, Code, Smartphone, Zap } from 'lucide-react';
 import { aboutData } from '@/lib/portfolio-data';
+import { cn } from '@/lib/utils';
 
 const iconMap = {
   Code,
@@ -22,7 +23,10 @@ export function AboutSection({ data = aboutData, locale }: AboutSectionProps) {
           {locale === 'en' ? 'About me' : 'درباره من'}
         </h2>
         <div
-          className={`${locale === 'en' ? 'w-33' : ''} h-1 bg-accent rounded-full mb-6`}
+          className={cn('h-1 bg-accent rounded-full mb-6', {
+            'w-33': locale === 'en',
+            'w-26': locale === 'fa',
+          })}
         />
         <div className='space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed'>
           {data.description.map((paragraph, index) => (

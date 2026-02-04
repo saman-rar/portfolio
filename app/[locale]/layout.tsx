@@ -9,13 +9,13 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  const locale = (await params.locale) || 'en';
+  const { locale } = await params;
 
   return (
     <>
       <div className='fixed top-2 right-2 md:top-3 md:right-3 z-50 flex flex-col gap-3'>
         <ThemeToggle />
-        {/* <LanguageToggle locale={locale} /> */}
+        <LanguageToggle locale={locale} />
       </div>
       {children}
     </>

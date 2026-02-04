@@ -58,11 +58,17 @@ export default function Home({ params, searchParams }: LocalePageProps) {
                 <AboutSection data={aboutData} locale={locale} />
               )}
               {activeSection === 'education' && (
-                <ResumeSection data={resumeData} />
+                <ResumeSection data={resumeData} locale={locale} />
               )}
-              {activeSection === 'portfolio' && <PortfolioSection />}
-              {activeSection === 'skills' && <SkillsTabSection />}
-              {activeSection === 'contact' && <ContactSection />}
+              {activeSection === 'portfolio' && (
+                <PortfolioSection locale={locale} />
+              )}
+              {activeSection === 'skills' && (
+                <SkillsTabSection locale={locale} />
+              )}
+              {activeSection === 'contact' && (
+                <ContactSection locale={locale} />
+              )}
             </div>
           </main>
           <ProfileSidebar data={profileData} locale={locale} />

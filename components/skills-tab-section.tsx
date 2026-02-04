@@ -5,6 +5,7 @@ import { Prisma } from '@/lib/generated/prisma/client';
 import Button from './button';
 import SkillCard from './skill-card';
 import SkillModal from './skill-modal';
+import { cn } from '@/lib/utils';
 
 type Skill = Prisma.SkillGetPayload<{
   include: { category: true; projects: true };
@@ -14,7 +15,7 @@ type Category = Prisma.CategoryGetPayload<{
   include: { projects: { include: { techs: true; categories: true } } };
 }>;
 
-export function SkillsTabSection() {
+export function SkillsTabSection({ locale }: { locale: string }) {
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
   const [skills, setSkills] = useState<Skill[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -44,11 +45,18 @@ export function SkillsTabSection() {
         <div>
           <div className='flex justify-between mb-4'>
             <h2 className='text-2xl md:text-3xl font-bold text-foreground'>
-              My Skills
+              {locale === 'en' ? 'Skills' : 'مهارت ها'}
             </h2>
-            <Button href='/en/techs'>All Techs</Button>
+            <Button href='/en/techs'>
+              {locale === 'en' ? 'All Techs' : 'نمایش همه'}
+            </Button>
           </div>
-          <div className='w-31 h-1 bg-accent rounded-full mb-6' />
+          <div
+            className={cn('h-1 bg-accent rounded-full mb-6', {
+              'w-18': locale === 'en',
+              'w-27': locale === 'fa',
+            })}
+          />
         </div>
 
         {/* Filter Buttons */}

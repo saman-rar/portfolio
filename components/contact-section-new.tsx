@@ -2,19 +2,29 @@
 
 import { Github, Linkedin, Mail, Phone, Send } from 'lucide-react';
 import { contactData } from '@/lib/portfolio-data';
+import { cn } from '@/lib/utils';
 
 interface ContactSectionProps {
   data?: typeof contactData;
+  locale: string;
 }
 
-export function ContactSection({ data = contactData }: ContactSectionProps) {
+export function ContactSection({
+  data = contactData,
+  locale,
+}: ContactSectionProps) {
   return (
     <div className='space-y-6 md:space-y-8'>
       <div>
         <h2 className='text-2xl md:text-3xl font-bold text-foreground mb-4'>
-          Contact
+          {locale === 'en' ? 'Contact' : 'اطلاعات تماس'}
         </h2>
-        <div className='w-26.5 h-1 bg-accent rounded-full mb-6' />
+        <div
+          className={cn('h-1 bg-accent rounded-full mb-6', {
+            'w-26.5': locale === 'en',
+            'w-41': locale === 'fa',
+          })}
+        />
       </div>
 
       <a
