@@ -4,17 +4,21 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
-    const categories: Prisma.CategoryGetPayload<{
-      include: { projects: { include: { techs: true; categories: true } } };
-    }>[] = await prisma.category.findMany({
-      include: {
-        projects: { include: { techs: true, categories: true } },
-        skills: { include: { projects: true, category: true } },
-      },
-    });
+    // const categories: Prisma.CategoryGetPayload<{
+    //   include: { projects: { include: { techs: true; categories: true } } };
+    // }>[] = await prisma.category.findMany({
+    //   include: {
+    //     projects: { include: { techs: true, categories: true } },
+    //     skills: { include: { projects: true, category: true } },
+    //   },
+    // });
+
+    const categories = await prisma.category.findMany({});
+    console.log('categories: ', categories);
 
     return NextResponse.json(categories);
   } catch (error) {
-    return NextResponse.json({ error: 'Something went wrong!', status: 500 });
+    console.log(error);
+    return NextResponse.json({ error: error, status: 500 });
   }
 }

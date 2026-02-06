@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../lib/generated/prisma"
@@ -13,38 +7,35 @@ datasource db {
   provider = "postgresql"
 }
 
-
-
 model Project {
-  id Int @id @default(autoincrement())
-  title String
-  image String
+  id          Int        @id @default(autoincrement())
+  title       String
+  image       String
   description String
-  liveUrl String
-  githubUrl String
-  tag String
-  techs Skill[]
-  categories Category[]
+  liveUrl     String
+  githubUrl   String
+  tag         String
+  categories  Category[] @relation("CategoryToProject")
+  techs       Skill[]    @relation("ProjectToSkill")
 }
 
 model Category {
-  id Int @id @default(autoincrement())
-  name String
-  skills Skill[]
-  projects Project[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  skills   Skill[]
+  projects Project[] @relation("CategoryToProject")
 }
 
 model Skill {
-  id Int @id @default(autoincrement())
-  name String @unique
-  icon String
-  description_en String
-  description_fa String
-  categoryId Int
-  category Category @relation(fields: [categoryId], references: [id])
-  level Int
+  id                Int       @id @default(autoincrement())
+  name              String    @unique
+  icon              String
+  description_en    String
+  description_fa    String
+  categoryId        Int
+  level             Int
   yearsOfExperience String
-  status String
-  projects Project[]
+  status            String
+  category          Category  @relation(fields: [categoryId], references: [id])
+  projects          Project[] @relation("ProjectToSkill")
 }
-

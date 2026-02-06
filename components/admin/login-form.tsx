@@ -16,7 +16,9 @@ export function LoginForm() {
         <form
           action={async (formData) => {
             'use server';
-            await signIn('credentials', formData);
+            await signIn('credentials', formData, {
+              redirectTo: '/admin/dashboard',
+            });
           }}
           className='flex flex-col gap-10'
         >

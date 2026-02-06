@@ -24,7 +24,7 @@ export function SkillsTabSection({ locale }: { locale: 'en' | 'fa' }) {
   useEffect(() => {
     fetch(`/api/categories`)
       .then((res) => res.json())
-      .then((data: Category[]) => setCategories(data))
+      .then((data: Category[]) => console.log(data))
       .catch((error) => {
         throw new Error(error);
       });

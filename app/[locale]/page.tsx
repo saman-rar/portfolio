@@ -15,7 +15,6 @@ import {
   faEducationData,
   faProfileData,
 } from '@/lib/portfolio-data';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 interface LocalePageProps {
