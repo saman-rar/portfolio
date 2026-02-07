@@ -1,4 +1,6 @@
-import { use } from 'react';
+'use client';
+
+import { use, useState } from 'react';
 import { ProfileSidebar } from '@/components/profile-sidebar';
 import { AboutSection } from '@/components/about-section';
 import { ResumeSection } from '@/components/resume-section';
@@ -14,6 +16,7 @@ import {
 } from '@/lib/portfolio-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface LocalePageProps {
   params: { locale: 'en' | 'fa' };
@@ -21,8 +24,11 @@ interface LocalePageProps {
 }
 
 export default function Home({ params, searchParams }: LocalePageProps) {
-  //@ts-expect-error
-  const activeSection = use(searchParams).section || 'about';
+  const router = useRouter();
+  const [activeSection, setActiveSection] = useState(
+    //@ts-expect-error
+    use(searchParams).section || 'about',
+  );
   //@ts-expect-error
   const { locale } = use(params);
 
@@ -33,6 +39,11 @@ export default function Home({ params, searchParams }: LocalePageProps) {
   // Use English or Persian data based on locale
   const translations =
     locale === 'en' ? getEnglishTranslations() : getPerisanTranslations();
+
+  const changeTabHandler = (section: string) => {
+    setActiveSection(section);
+    router.replace(`/en?section=${section}`);
+  };
 
   return (
     <div
@@ -46,10 +57,9 @@ export default function Home({ params, searchParams }: LocalePageProps) {
             {/* Navigation */}
             <nav className='flex justify-center md:justify-start gap-1 sm:gap-2 md:gap-4 p-3 sm:p-4 md:p-6 border-b border-border overflow-x-auto scrollbar-hide'>
               {translations.sections.map((section) => (
-                <Link
+                <button
                   key={section.id}
-                  href={`/${locale}?section=${section.id}`}
-                  scroll={false}
+                  onClick={() => changeTabHandler(section.id)}
                   className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium capitalize transition-colors whitespace-nowrap shrink-0 ${
                     activeSection === section.id
                       ? 'text-foreground bg-accent/10'
@@ -57,7 +67,7 @@ export default function Home({ params, searchParams }: LocalePageProps) {
                   }`}
                 >
                   {section.label}
-                </Link>
+                </button>
               ))}
             </nav>
 
