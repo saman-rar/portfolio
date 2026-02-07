@@ -81,7 +81,9 @@ export function ProfileSidebar({
                 href={option.href}
                 className='text-sm text-foreground hover:text-accent transition-colors break-all'
               >
-                {option.title}
+                {locale === 'fa'
+                  ? option.title.replace('+98', '0')
+                  : option.title}
               </a>
             </div>
           </div>
