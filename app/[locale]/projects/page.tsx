@@ -1,5 +1,6 @@
 import { ProjectsSection } from '@/components/projects-section';
 import { projects } from '@/lib/portfolio-data';
+import { notFound } from 'next/navigation';
 
 const ProjectsPage = async ({
   params,
@@ -7,6 +8,10 @@ const ProjectsPage = async ({
   params: { locale: 'en' | 'fa' };
 }) => {
   const { locale } = (await params) || 'en';
+
+  if (locale !== 'en' && locale !== 'fa') {
+    return notFound();
+  }
 
   return (
     <div

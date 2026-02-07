@@ -11,9 +11,9 @@ import {
   faAboutData,
   educationData,
   faEducationData,
-  faProfileData,
 } from '@/lib/portfolio-data';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface LocalePageProps {
   params: { locale: 'en' | 'fa' };
@@ -25,6 +25,10 @@ export default function Home({ params, searchParams }: LocalePageProps) {
   const activeSection = use(searchParams).section || 'about';
   //@ts-expect-error
   const { locale } = use(params);
+
+  if (locale !== 'en' && locale !== 'fa') {
+    return notFound();
+  }
 
   // Use English or Persian data based on locale
   const translations =

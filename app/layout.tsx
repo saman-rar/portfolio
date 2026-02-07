@@ -37,7 +37,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale?: string };
 }>) {
-  const locale = (await params?.locale) || 'en';
+  const locale = await params?.locale;
   const isRTL = locale === 'fa';
 
   return (
