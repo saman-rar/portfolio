@@ -28,15 +28,17 @@ const ProtfolioCard = ({
 
         {/* Action Buttons */}
         <div className='flex gap-2 md:gap-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75'>
-          <a
-            href={project.liveUrl}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-accent text-accent-foreground rounded-lg text-xs md:text-sm font-medium hover:opacity-90 transition-opacity'
-          >
-            <Eye className='w-3.5 h-3.5 md:w-4 md:h-4' />
-            Preview
-          </a>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-accent text-accent-foreground rounded-lg text-xs md:text-sm font-medium hover:opacity-90 transition-opacity'
+            >
+              <Eye className='w-3.5 h-3.5 md:w-4 md:h-4' />
+              Preview
+            </a>
+          )}
           <a
             href={project.githubUrl}
             target='_blank'

@@ -1,5 +1,5 @@
 import { TechSection } from '@/components/tech-section';
-import { getSkills } from '@/lib/db';
+import { techs } from '@/lib/portfolio-data';
 
 const ProjectsPage = async ({
   params,
@@ -7,7 +7,6 @@ const ProjectsPage = async ({
   params: { locale: 'en' | 'fa' };
 }) => {
   const { locale } = (await params) || 'en';
-  const techs = await getSkills();
 
   return (
     <div

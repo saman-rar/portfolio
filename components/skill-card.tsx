@@ -1,38 +1,14 @@
-import {
-  ProjectGetPayload,
-  SkillGetPayload,
-} from '@/lib/generated/prisma/models';
+import { techs } from '@/lib/portfolio-data';
+import { cn } from '@/lib/utils';
 import { Dispatch, SetStateAction } from 'react';
 
-type Skill =
-  | {
-      name: string;
-      category: string;
-      description: string;
-      yearsOfExperience: string;
-      level: number;
-      projects: ProjectGetPayload<{
-        include: { techs: true; categories: true };
-      }>[];
-    }
-  | SkillGetPayload<{
-      include: {
-        category: true;
-        projects: true;
-      };
-    }>;
+type Skill = (typeof techs)[0];
 
 interface SkillCardProps {
   skill: Skill;
-  setSelectedSkill?: Dispatch<
-    SetStateAction<SkillGetPayload<{
-      include: {
-        category: true;
-        projects: true;
-      };
-    }> | null>
-  >;
+  setSelectedSkill?: Dispatch<SetStateAction<Skill | null>>;
   isOddOrLast?: boolean;
+  isOnly: boolean;
   locale?: 'en' | 'fa';
 }
 
@@ -40,25 +16,25 @@ const SkillCard = ({
   skill,
   setSelectedSkill,
   isOddOrLast,
+  isOnly,
   locale = 'en',
 }: SkillCardProps) => {
   const clickHandler = (skill: Skill) => {
     if (setSelectedSkill) {
-      setSelectedSkill(
-        skill as SkillGetPayload<{
-          include: {
-            category: true;
-            projects: true;
-          };
-        }>,
-      );
+      setSelectedSkill(skill);
     }
   };
 
   return (
     <div
       onClick={() => clickHandler(skill)}
-      className={`cursor-pointer group p-4 md:p-6 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent hover:shadow-lg hover:shadow-accent/10 transition-all ${isOddOrLast ? 'lg:col-span-2' : null}`}
+      className={cn(
+        'cursor-pointer group p-4 md:p-6 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent hover:shadow-lg hover:shadow-accent/10 transition-all',
+        {
+          'lg:col-span-2': isOddOrLast,
+          'col-span-2': isOnly,
+        },
+      )}
     >
       <div className='flex justify-between mb-4 items-center'>
         <span className='text-sm md:text-base font-semibold text-foreground group-hover:text-accent transition-colors'>

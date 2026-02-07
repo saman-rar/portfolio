@@ -1,15 +1,11 @@
 'use client';
 
-import { SkillGetPayload } from '@/lib/generated/prisma/models';
+import { projects, techs } from '@/lib/portfolio-data';
 import { ChevronLeft, ChevronRight, ExternalLink, Eye, X } from 'lucide-react';
 import { useState } from 'react';
 
-type Skill = SkillGetPayload<{
-  include: { category: true; projects: true };
-}>;
-
 interface SkillModalProps {
-  skill: Skill;
+  skill: (typeof techs)[0];
   isOpen: boolean;
   onClose: () => void;
   locale?: 'en' | 'fa';
@@ -25,7 +21,9 @@ export default function SkillModal({
 
   if (!isOpen) return null;
 
-  const filteredProjects = skill.projects;
+  const filteredProjects = projects.filter((project) =>
+    skill.projects.includes(project.title),
+  );
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % filteredProjects.length);

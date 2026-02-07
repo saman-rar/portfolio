@@ -1,6 +1,4 @@
-'use client';
-
-import { use, useState } from 'react';
+import { use } from 'react';
 import { ProfileSidebar } from '@/components/profile-sidebar';
 import { AboutSection } from '@/components/about-section';
 import { ResumeSection } from '@/components/resume-section';
@@ -83,10 +81,7 @@ export default function Home({ params, searchParams }: LocalePageProps) {
               )}
             </div>
           </main>
-          <ProfileSidebar
-            data={locale === 'en' ? profileData : faProfileData}
-            locale={locale}
-          />
+          <ProfileSidebar data={profileData} locale={locale} />
         </div>
       </div>
     </div>

@@ -1,43 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Prisma } from '@/lib/generated/prisma/client';
+import { useState } from 'react';
 import ProtfolioCard from './portfolio-card';
 import Button from './button';
-
-type Category = Prisma.CategoryGetPayload<{
-  include: { projects: { include: { techs: true; categories: true } } };
-}>;
-
-type Project = Prisma.ProjectGetPayload<{
-  include: { techs: true; categories: true };
-}>;
+import { categories } from '@/lib/portfolio-data';
 
 export function PortfolioSection({ locale }: { locale: string }) {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [allProjects, setAllProjects] = useState<Project[]>([]);
-  const [activeFilter, setActiveFilter] = useState<Category | 'all'>('all');
+  const [activeFilter, setActiveFilter] = useState<string>('All');
 
-  useEffect(() => {
-    fetch(`/api/projects`)
-      .then((res) => res.json())
-      .then((data: Project[]) => setAllProjects(data))
-      .catch((error) => {
-        throw new Error(error);
-      });
-  }, []);
+  const category = categories.find((c) => c.name === activeFilter);
 
-  useEffect(() => {
-    fetch(`/api/categories`)
-      .then((res) => res.json())
-      .then((data: Category[]) => setCategories(data))
-      .catch((error) => {
-        throw new Error(error);
-      });
-  }, []);
-
-  const filteredProjects: Project[] =
-    activeFilter === 'all' ? allProjects : activeFilter.projects;
+  const filteredProjects = category ? category.projects : [];
 
   return (
     <div className='space-y-6 md:space-y-8 min-h-[54vh]'>
@@ -56,28 +29,35 @@ export function PortfolioSection({ locale }: { locale: string }) {
       {/* Filter Buttons */}
       <div className='pb-3 flex overflow-x-auto gap-2 md:gap-3'>
         <button
-          onClick={() => setActiveFilter('all')}
+          onClick={() => setActiveFilter('All')}
           className={`px-4 md:px-5  py-3 md:py-4 rounded-xl text-xs md:text-sm font-medium capitalize transition-all text-nowrap ${
-            activeFilter === 'all'
+            activeFilter === 'All'
               ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/20'
               : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80'
           }`}
         >
-          {'All'}
+          All
         </button>
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => setActiveFilter(category)}
-            className={`px-4 md:px-5  py-3 md:py-4 rounded-xl text-xs md:text-sm font-medium capitalize transition-all text-nowrap ${
-              activeFilter === category
-                ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/20'
-                : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80'
-            }`}
-          >
-            {category.name}
-          </button>
-        ))}
+        <button
+          onClick={() => setActiveFilter('Front-End')}
+          className={`px-4 md:px-5  py-3 md:py-4 rounded-xl text-xs md:text-sm font-medium capitalize transition-all text-nowrap ${
+            activeFilter === 'Front-End'
+              ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/20'
+              : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80'
+          }`}
+        >
+          Front-End
+        </button>
+        <button
+          onClick={() => setActiveFilter('Back-End')}
+          className={`px-4 md:px-5  py-3 md:py-4 rounded-xl text-xs md:text-sm font-medium capitalize transition-all text-nowrap ${
+            activeFilter === 'Back-End'
+              ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/20'
+              : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80'
+          }`}
+        >
+          Back-End
+        </button>
       </div>
 
       <div

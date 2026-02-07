@@ -1,5 +1,5 @@
 import { ProjectsSection } from '@/components/projects-section';
-import { getProjects } from '@/lib/db';
+import { projects } from '@/lib/portfolio-data';
 
 const ProjectsPage = async ({
   params,
@@ -7,7 +7,6 @@ const ProjectsPage = async ({
   params: { locale: 'en' | 'fa' };
 }) => {
   const { locale } = (await params) || 'en';
-  const projects = await getProjects();
 
   return (
     <div

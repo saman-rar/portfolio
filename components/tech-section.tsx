@@ -1,9 +1,9 @@
-import { Skill } from '@/lib/db';
 import TechCard from './tech-card';
 import Button from './button';
+import { techs } from '@/lib/portfolio-data';
 
 interface TechSectionProps {
-  techs: Skill[];
+  techs: typeof techs;
   locale: 'en' | 'fa';
 }
 
@@ -23,12 +23,12 @@ export function TechSection({ techs, locale }: TechSectionProps) {
           <TechCard
             locale={locale}
             yearsOfExperience={tech.yearsOfExperience}
-            key={tech.id}
+            key={tech.name}
             icon={tech.icon}
             description={
               locale === 'en' ? tech.description_en : tech.description_fa
             }
-            category={tech.category.name}
+            category={tech.category}
             name={tech.name}
           />
         ))}

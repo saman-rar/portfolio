@@ -1,5 +1,4 @@
-import { Mail, Phone, Calendar, MapPin, Linkedin } from 'lucide-react';
-import { Github, Send } from 'lucide-react';
+import { BookOpen, Calendar } from 'lucide-react';
 import { profileData } from '@/lib/portfolio-data';
 import Image from 'next/image';
 
@@ -12,8 +11,6 @@ export function ProfileSidebar({
   data = profileData,
   locale = 'en',
 }: ProfileSidebarProps) {
-  const translations =
-    locale === 'en' ? englishTranslations : persianTranslations;
   return (
     <aside className='w-full flex flex-col lg:w-80 bg-card rounded-2xl border border-border p-4 md:p-6 lg:sticky lg:top-8 lg:h-[calc(100vh-96px)]'>
       {/* Profile Image */}
@@ -24,17 +21,17 @@ export function ProfileSidebar({
             <Image
               fill
               src={data.avatar || '/placeholder.svg'}
-              alt={data.name}
+              alt={locale === 'en' ? data.enName : data.faName}
               className='w-full h-full object-cover'
             />
           </div>
         </div>
 
         <h1 className='text-xl md:text-2xl font-bold text-foreground mb-2'>
-          {data.name}
+          {locale === 'en' ? data.enName : data.faName}
         </h1>
         <p className='text-xs md:text-sm text-muted-foreground bg-secondary px-3 md:px-4 py-1 rounded-lg'>
-          {data.title}
+          {locale === 'en' ? data.enTitle : data.faTitle}
         </p>
       </div>
 
@@ -45,138 +42,65 @@ export function ProfileSidebar({
       <div className='grid flex-1 grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 md:gap-4'>
         <div className='flex items-start gap-3'>
           <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
-            <Mail className='w-5 h-5 text-accent' />
-          </div>
-          <div className='flex-1 min-w-0'>
-            <p className='text-xs text-muted-foreground uppercase mb-1'>
-              {translations.email}
-            </p>
-            <a
-              href={`mailto:${data.email}`}
-              className='text-sm text-foreground hover:text-accent transition-colors break-all'
-            >
-              {data.email}
-            </a>
-          </div>
-        </div>
-
-        <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
-            <Phone className='w-5 h-5 text-accent' />
-          </div>
-          <div className='flex-1'>
-            <p className='text-xs text-muted-foreground uppercase mb-1'>
-              {translations.phone}
-            </p>
-            <a
-              dir='ltr'
-              href={`tel:${data.phone.replace(/\s/g, '')}`}
-              className='text-sm text-foreground hover:text-accent transition-colors'
-            >
-              {data.phone}
-            </a>
-          </div>
-        </div>
-
-        <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
-            <Github className='w-5 h-5 text-accent' />
-          </div>
-          <div className='flex-1'>
-            <p className='text-xs text-muted-foreground uppercase mb-1'>
-              {translations.github}
-            </p>
-            <a
-              href={data.social.github}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-sm text-foreground hover:text-accent transition-colors'
-            >
-              {data.social.github.replace('https://github.com/', '')}
-            </a>
-          </div>
-        </div>
-
-        <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
-            <Linkedin className='w-5 h-5 text-accent' />
-          </div>
-          <div className='flex-1'>
-            <p className='text-xs text-muted-foreground uppercase mb-1'>
-              {translations.linkedin}
-            </p>
-            <a
-              href={data.social.linkedin}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-sm text-foreground hover:text-accent transition-colors'
-            >
-              {data.social.linkedin.replace('https://www.linkedin.com/in/', '')}
-            </a>
-          </div>
-        </div>
-
-        <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
-            <Send className='w-5 h-5 text-accent' />
-          </div>
-          <div className='flex-1'>
-            <p className='text-xs text-muted-foreground uppercase mb-1'>
-              {translations.telegram}
-            </p>
-            <a
-              href={`https://t.me/${data.telegram}`}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-sm text-foreground hover:text-accent transition-colors'
-            >
-              {data.telegram}
-            </a>
-          </div>
-        </div>
-
-        <div className='flex items-start gap-3'>
-          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
             <Calendar className='w-5 h-5 text-accent' />
           </div>
           <div className='flex-1'>
             <p className='text-xs text-muted-foreground uppercase mb-1'>
-              {translations.birthday}
+              {locale === 'en' ? 'Birthday' : 'تاریخ تولد'}
             </p>
-            <p className='text-sm text-foreground'>{data.birthday}</p>
+            <p className='text-sm text-foreground'>
+              {locale === 'en' ? data.enBirthday : data.faBirthday}
+            </p>
           </div>
         </div>
+
+        <div className='flex items-start gap-3'>
+          <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
+            <BookOpen className='w-5 h-5 text-accent' />
+          </div>
+          <div className='flex-1'>
+            <p className='text-xs text-muted-foreground uppercase mb-1'>
+              {locale === 'en' ? 'Education' : 'تحصیلات'}
+            </p>
+            <p className='text-sm text-foreground'>
+              {locale === 'en' ? data.enEducation : data.faEducation}
+            </p>
+          </div>
+        </div>
+
+        {data.options.map((option) => (
+          <div className='flex items-start gap-3'>
+            <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
+              <option.Icon className='w-5 h-5 text-accent' />
+            </div>
+            <div className='flex-1 min-w-0'>
+              <p className='text-xs text-muted-foreground uppercase mb-1'>
+                {locale === 'en' ? option.enLabel : option.faLabel}
+              </p>
+              <a
+                href={option.href}
+                className='text-sm text-foreground hover:text-accent transition-colors break-all'
+              >
+                {option.title}
+              </a>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Social Links */}
       <div className='flex items-center justify-center gap-4 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-border'>
-        <a
-          href={data.social.github}
-          target='_blank'
-          rel='noopener noreferrer'
-          className='w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center'
-          aria-label='GitHub'
-        >
-          <Github className='w-5 h-5' />
-        </a>
-        <a
-          href={data.social.linkedin}
-          target='_blank'
-          rel='noopener noreferrer'
-          className='w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center'
-          aria-label='LinkedIn'
-        >
-          <Linkedin className='w-5 h-5' />
-        </a>
-        <a
-          href={`https://t.me/${data.telegram}`}
-          target='_blank'
-          rel='noopener noreferrer'
-          className='w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center'
-          aria-label='Telegram'
-        >
-          <Send className='w-5 h-5' />
-        </a>
+        {data.social.map((s) => (
+          <a
+            href={s.href}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='w-10 h-10 rounded-lg bg-secondary hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center'
+            aria-label='GitHub'
+          >
+            <s.Icon className='w-5 h-5' />
+          </a>
+        ))}
       </div>
     </aside>
   );

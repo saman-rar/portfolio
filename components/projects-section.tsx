@@ -1,9 +1,9 @@
-import { Project } from '@/lib/db';
 import { ProjectCard } from './project-card';
 import Button from './button';
+import { projects } from '@/lib/portfolio-data';
 
 interface ProjectsSectionProps {
-  projects: Project[];
+  projects: typeof projects;
   locale: 'en' | 'fa';
 }
 
@@ -24,7 +24,7 @@ export function ProjectsSection({ projects, locale }: ProjectsSectionProps) {
             key={project.id}
             image={project.image}
             description={project.description}
-            tags={project.techs.map((tech) => tech.name)}
+            tags={project.techs}
             title={project.title}
           />
         ))}
