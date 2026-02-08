@@ -42,7 +42,9 @@ export default function Home({ params, searchParams }: LocalePageProps) {
 
   const changeTabHandler = (section: string) => {
     setActiveSection(section);
-    router.replace(`/en?section=${section}`);
+    router.replace(`/en?section=${section}`, {
+      scroll: false,
+    });
   };
 
   return (

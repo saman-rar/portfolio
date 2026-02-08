@@ -79,24 +79,6 @@ export const profileData = {
   ],
 };
 
-export const faProfileData = {
-  name: 'سامان فرجی',
-  title: 'برنامه‌نویس فرانت‌اند',
-  avatar: '/professional-developer-avatar.png',
-  email: 'samanfaraji1384@gmail.com',
-  phone: '+989193974595',
-  telegram: 'Saman_rar',
-  birthday: '19 آبان 1384',
-  university: {
-    name: 'دانشگاه بین المللی قم',
-    link: 'https://www.qom.ac.ir/',
-  },
-  social: {
-    github: 'https://github.com/saman-rar',
-    linkedin: 'https://www.linkedin.com/in/saman-rar',
-  },
-};
-
 export const aboutData = {
   description: [
     "I'm a Front-End Developer with a solid knowledge in Back-End specializing in web development and creating innovative digital solutions. I enjoy turning complex problems into simple, beautiful and intuitive applications.",
@@ -208,6 +190,39 @@ export const contactData = [
 ];
 
 export const projects = [
+  {
+    id: 0,
+    title: 'Payload Digital Market',
+    image: '/fileeno.png',
+    description:
+      'Full-stack digital market website witch payload cms and next.js',
+    liveUrl: 'https://fileeno.vercel.app/',
+    githubUrl: 'https://github.com/saman-rar/fileeno-digital-market',
+    tag: 'Payload CMS & Next.js',
+    techs: [
+      'Payload CMS',
+      'Next.js',
+      'TypeScript',
+      'MongoDB',
+      'Express.js',
+      'Zustand',
+      'Tailwind CSS',
+    ],
+    categories: [
+      {
+        id: 1,
+        name: 'Front-End',
+      },
+      {
+        id: 2,
+        name: 'Back-End',
+      },
+      {
+        id: 4,
+        name: 'CMS',
+      },
+    ],
+  },
   {
     id: 1,
     title: 'Task Manager',
@@ -327,7 +342,7 @@ export const techs = [
     name: 'HTML5',
     level: 100,
     yearsOfExperience: '3',
-    projects: ['GameStation', 'Wedding'],
+    projects: ['GameStation', 'Wedding Website'],
     category: 'Front-End',
     icon: 'HTML5Icon',
     description_en:
@@ -339,7 +354,7 @@ export const techs = [
     name: 'CSS',
     level: 100,
     yearsOfExperience: '3',
-    projects: ['GameStation', 'Wedding'],
+    projects: ['GameStation', 'Wedding Website'],
     category: 'Front-End',
     icon: 'CSSIcon',
     description_en:
@@ -351,7 +366,7 @@ export const techs = [
     name: 'Sass',
     level: 100,
     yearsOfExperience: '3',
-    projects: ['Asia Janebi Shop', 'Task Manager'],
+    projects: ['E-Commerce', 'Task Manager'],
     category: 'Front-End',
     icon: 'SassIcon',
     description_en:
@@ -375,7 +390,7 @@ export const techs = [
     name: 'TypeSript',
     level: 80,
     yearsOfExperience: '+2',
-    projects: ['Payload Digital Market'],
+    projects: ['Payload Digital Market', 'DigiContents Messenger'],
     category: 'Front-End',
     icon: 'TypeScriptIcon',
     description_en:
@@ -387,7 +402,7 @@ export const techs = [
     name: 'React.js',
     level: 65,
     yearsOfExperience: '2',
-    projects: ['Asia Janebi Shop'],
+    projects: ['E-Commerce'],
     category: 'Front-End',
     icon: 'ReactIcon',
     description_en:
@@ -399,7 +414,11 @@ export const techs = [
     name: 'Next.js',
     level: 65,
     yearsOfExperience: '2',
-    projects: ['E-Commerce'],
+    projects: [
+      'Payload Digital Market',
+      'DigiContents Messenger',
+      'Next.js Blog',
+    ],
     category: 'Front-End',
     icon: 'NextIcon',
     description_en:
@@ -411,7 +430,7 @@ export const techs = [
     name: 'Zustand, Redux, React Context',
     level: 65,
     yearsOfExperience: '2',
-    projects: ['Payload Digitla Market', 'Asia Janebi Shop'],
+    projects: ['Payload Digitla Market', 'E-Commerce'],
     category: 'Front-End',
     icon: 'ReduxIcon',
     description_en:
@@ -423,7 +442,11 @@ export const techs = [
     name: 'Tailwind CSS',
     level: 65,
     yearsOfExperience: '2',
-    projects: ['Payload Digital Market', 'E-Commerce'],
+    projects: [
+      'Payload Digital Market',
+      'E-Commerce',
+      'DigiContents Messenger',
+    ],
     category: 'Front-End',
     icon: 'TailwindIcon',
     description_en:
@@ -447,7 +470,7 @@ export const techs = [
     name: 'RESTful APIs',
     level: 65,
     yearsOfExperience: '+1',
-    projects: ['Github'],
+    projects: ['Node.js REST API'],
     category: 'Back-End',
     icon: 'RESTfulAPIsIcon',
     description_en:
@@ -459,7 +482,7 @@ export const techs = [
     name: 'MongoDb & Mongoose',
     level: 50,
     yearsOfExperience: '+1',
-    projects: [],
+    projects: ['Payload Digital Market', 'Express Shop'],
     category: 'Back-End',
     icon: 'MongoDBIcon',
     description_en:
@@ -495,7 +518,7 @@ export const techs = [
     name: 'Node.js',
     level: 35,
     yearsOfExperience: '1',
-    projects: [],
+    projects: ['Express Shop', 'Node.js REST API'],
     category: 'Back-End',
     icon: 'NodeJsIcon',
     description_en:
@@ -507,7 +530,7 @@ export const techs = [
     name: 'Express.js',
     level: 15,
     yearsOfExperience: '+0',
-    projects: [],
+    projects: ['Express Shop', 'Node.js REST API'],
     category: 'Back-End',
     icon: 'ExpressIcon',
     description_en:
@@ -531,7 +554,7 @@ export const techs = [
     name: 'Payload CMS',
     level: 15,
     yearsOfExperience: '+0',
-    projects: [],
+    projects: ['Payload Digital Market'],
     category: 'CMS',
     icon: 'PayloadIcon',
     description_en:
@@ -551,6 +574,39 @@ export const categories = [
     id: 1,
     name: 'Front-End',
     projects: [
+      {
+        id: 0,
+        title: 'Payload Digital Market',
+        image: '/fileeno.png',
+        description:
+          'Full-stack digital market website witch payload cms and next.js',
+        liveUrl: 'https://fileeno.vercel.app/',
+        githubUrl: 'https://github.com/saman-rar/fileeno-digital-market',
+        tag: 'Payload CMS & Next.js',
+        techs: [
+          'Payload CMS',
+          'Next.js',
+          'TypeScript',
+          'MongoDB',
+          'Express.js',
+          'Zustand',
+          'Tailwind CSS',
+        ],
+        categories: [
+          {
+            id: 1,
+            name: 'Front-End',
+          },
+          {
+            id: 2,
+            name: 'Back-End',
+          },
+          {
+            id: 4,
+            name: 'CMS',
+          },
+        ],
+      },
       {
         id: 1,
         title: 'Task Manager',
@@ -667,6 +723,39 @@ export const categories = [
     name: 'Back-End',
     projects: [
       {
+        id: 0,
+        title: 'Payload Digital Market',
+        image: '/fileeno.png',
+        description:
+          'Full-stack digital market website witch payload cms and next.js',
+        liveUrl: 'https://fileeno.vercel.app/',
+        githubUrl: 'https://github.com/saman-rar/fileeno-digital-market',
+        tag: 'Payload CMS & Next.js',
+        techs: [
+          'Payload CMS',
+          'Next.js',
+          'TypeScript',
+          'MongoDB',
+          'Express.js',
+          'Zustand',
+          'Tailwind CSS',
+        ],
+        categories: [
+          {
+            id: 1,
+            name: 'Front-End',
+          },
+          {
+            id: 2,
+            name: 'Back-End',
+          },
+          {
+            id: 4,
+            name: 'CMS',
+          },
+        ],
+      },
+      {
         id: 6,
         title: 'Node.js REST API',
         image: '/rest-api.webp',
@@ -706,6 +795,40 @@ export const categories = [
   {
     id: 4,
     name: 'CMS',
-    projects: [],
+    projects: [
+      {
+        id: 7,
+        title: 'Payload Digital Market',
+        image: '/fileeno.png',
+        description:
+          'Full-stack digital market website witch payload cms and next.js',
+        liveUrl: 'https://fileeno.vercel.app/',
+        githubUrl: 'https://github.com/saman-rar/fileeno-digital-market',
+        tag: 'Payload CMS & Next.js',
+        techs: [
+          'Payload CMS',
+          'Next.js',
+          'TypeScript',
+          'MongoDB',
+          'Express.js',
+          'Zustand',
+          'Tailwind CSS',
+        ],
+        categories: [
+          {
+            id: 1,
+            name: 'Front-End',
+          },
+          {
+            id: 2,
+            name: 'Back-End',
+          },
+          {
+            id: 4,
+            name: 'CMS',
+          },
+        ],
+      },
+    ],
   },
 ];
