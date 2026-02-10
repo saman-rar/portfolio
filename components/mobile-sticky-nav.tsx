@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Moon, Sun, MoreVertical } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -26,12 +26,9 @@ export function MobileStickyNav({
   navRef,
   onVisibilityChange,
 }: MobileStickyNavProps) {
-  const [isNavOffscreen, setIsNavOffscreen] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [isScrolledPastNav, setIsScrolledPastNav] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const lastScrollY = useRef(0);
-  const ticking = useRef(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
@@ -46,16 +43,23 @@ export function MobileStickyNav({
     }
   }, []);
 
-  // Observe when the original nav scrolls out of view
+  // Observe when user scrolls PAST the original nav (not just off-screen)
+  // We use IntersectionObserver with rootMargin so that "not intersecting"
+  // combined with a check on boundingClientRect tells us the nav is above viewport.
   useEffect(() => {
     const navEl = navRef.current;
     if (!navEl) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const offscreen = !entry.isIntersecting;
-        setIsNavOffscreen(offscreen);
-        onVisibilityChange?.(offscreen);
+        // entry.boundingClientRect.bottom < 0 means the nav has been
+        // scrolled above the top of the viewport (user scrolled past it).
+        // If the nav is off-screen because the user hasn't reached it yet,
+        // boundingClientRect.top will be positive/large, so we ignore that.
+        const scrolledPast =
+          !entry.isIntersecting && entry.boundingClientRect.bottom < 0;
+        setIsScrolledPastNav(scrolledPast);
+        onVisibilityChange?.(scrolledPast);
       },
       { threshold: 0, rootMargin: '0px' },
     );
@@ -63,33 +67,6 @@ export function MobileStickyNav({
     observer.observe(navEl);
     return () => observer.disconnect();
   }, [navRef, onVisibilityChange]);
-
-  // Scroll-based show/hide
-  const handleScroll = useCallback(() => {
-    if (!ticking.current) {
-      window.requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
-
-        if (currentScrollY < 10) {
-          setVisible(true);
-        } else if (currentScrollY > lastScrollY.current + 5) {
-          setVisible(false);
-          setDropdownOpen(false);
-        } else if (currentScrollY < lastScrollY.current - 5) {
-          setVisible(true);
-        }
-
-        lastScrollY.current = currentScrollY;
-        ticking.current = false;
-      });
-      ticking.current = true;
-    }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -123,16 +100,12 @@ export function MobileStickyNav({
     setDropdownOpen(false);
   };
 
-  // Only render on mobile/tablet when nav is off-screen
-  if (!isNavOffscreen) return null;
+  // Only render on mobile/tablet when user has scrolled past the nav
+  if (!isScrolledPastNav) return null;
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-50 lg:hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        visible
-          ? 'translate-y-0 opacity-100'
-          : '-translate-y-full opacity-0'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 lg:hidden transition-all duration-300 ease-out translate-y-0 opacity-100 animate-in slide-in-from-top"
     >
       <div className="flex items-center border-b border-foreground/[0.08] bg-foreground/[0.06] px-2 py-2 shadow-lg backdrop-blur-xl">
         {/* Scrollable section tabs */}
