@@ -107,7 +107,7 @@ export function MobileStickyNav({
     <div
       className="fixed top-0 left-0 right-0 z-50 lg:hidden transition-all duration-300 ease-out translate-y-0 opacity-100 animate-in slide-in-from-top"
     >
-      <div className="flex items-center border-b border-foreground/[0.08] bg-foreground/[0.06] px-2 py-2 shadow-lg backdrop-blur-xl">
+      <div className="flex items-center border-b border-foreground/[0.12] bg-background/70 px-2 py-2 shadow-lg backdrop-blur-2xl backdrop-saturate-150">
         {/* Scrollable section tabs */}
         <div className="flex-1 overflow-x-auto scrollbar-hide">
           <div className="flex items-center gap-1 px-1">
@@ -139,7 +139,7 @@ export function MobileStickyNav({
 
           {dropdownOpen && (
             <div
-              className={`absolute ${locale === 'fa' ? 'left-0' : 'right-0'} top-full mt-1.5 min-w-[160px] rounded-xl border border-foreground/[0.08] bg-foreground/[0.06] p-1.5 shadow-xl backdrop-blur-xl`}
+              className={`absolute ${locale === 'fa' ? 'left-0' : 'right-0'} top-full mt-1.5 min-w-[160px] rounded-xl border border-foreground/[0.12] bg-background/70 p-1.5 shadow-xl backdrop-blur-2xl backdrop-saturate-150`}
             >
               <button
                 onClick={toggleTheme}

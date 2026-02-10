@@ -84,7 +84,7 @@ export function FloatingPill({ locale, hidden = false }: FloatingPillProps) {
           : '-translate-y-[calc(100%+2rem)] opacity-0 pointer-events-none'
       }`}
     >
-      <div className="flex items-center gap-1 rounded-full border border-foreground/[0.08] bg-foreground/[0.06] px-1.5 py-1.5 shadow-lg backdrop-blur-xl">
+      <div className="flex items-center gap-1 rounded-full border border-foreground/[0.12] bg-background/70 px-1.5 py-1.5 shadow-lg backdrop-blur-2xl backdrop-saturate-150">
         <button
           onClick={toggleTheme}
           className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-foreground/10"
