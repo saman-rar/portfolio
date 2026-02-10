@@ -6,9 +6,10 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface FloatingPillProps {
   locale: string;
+  hidden?: boolean;
 }
 
-export function FloatingPill({ locale }: FloatingPillProps) {
+export function FloatingPill({ locale, hidden = false }: FloatingPillProps) {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
@@ -78,9 +79,9 @@ export function FloatingPill({ locale }: FloatingPillProps) {
   return (
     <div
       className={`fixed top-3 right-3 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        visible
+        visible && !hidden
           ? 'translate-y-0 opacity-100'
-          : '-translate-y-[calc(100%+2rem)] opacity-0'
+          : '-translate-y-[calc(100%+2rem)] opacity-0 pointer-events-none'
       }`}
     >
       <div className="flex items-center gap-1 rounded-full border border-foreground/[0.08] bg-foreground/[0.06] px-1.5 py-1.5 shadow-lg backdrop-blur-xl">

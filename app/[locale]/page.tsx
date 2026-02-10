@@ -1,12 +1,14 @@
 'use client';
 
-import { use, useState } from 'react';
+import { use, useState, useRef } from 'react';
 import { ProfileSidebar } from '@/components/profile-sidebar';
 import { AboutSection } from '@/components/about-section';
 import { ResumeSection } from '@/components/resume-section';
 import { PortfolioSection } from '@/components/portfolio-section';
 import { SkillsTabSection } from '@/components/skills-tab-section';
 import { ContactSection } from '@/components/contact-section-new';
+import { FloatingPill } from '@/components/floating-pill';
+import { MobileStickyNav } from '@/components/mobile-sticky-nav';
 import {
   profileData,
   aboutData,
@@ -17,6 +19,7 @@ import {
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 interface LocalePageProps {
   params: { locale: 'en' | 'fa' };
@@ -25,6 +28,9 @@ interface LocalePageProps {
 
 export default function Home({ params, searchParams }: LocalePageProps) {
   const router = useRouter();
+  const navRef = useRef<HTMLElement>(null);
+  const [navOffscreen, setNavOffscreen] = useState(false);
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [activeSection, setActiveSection] = useState(
     //@ts-expect-error
     use(searchParams).section || 'about',
@@ -42,7 +48,7 @@ export default function Home({ params, searchParams }: LocalePageProps) {
 
   const changeTabHandler = (section: string) => {
     setActiveSection(section);
-    router.replace(`/en?section=${section}`, {
+    router.replace(`/${locale}?section=${section}`, {
       scroll: false,
     });
   };
@@ -52,12 +58,21 @@ export default function Home({ params, searchParams }: LocalePageProps) {
       dir={locale === 'en' ? 'ltr' : 'rtl'}
       className='min-h-screen bg-background p-3 sm:p-4 md:p-6 lg:p-12'
     >
+      <FloatingPill locale={locale} hidden={navOffscreen && !isDesktop} />
+      <MobileStickyNav
+        sections={translations.sections}
+        activeSection={activeSection}
+        onSectionChange={changeTabHandler}
+        locale={locale}
+        navRef={navRef}
+        onVisibilityChange={setNavOffscreen}
+      />
       <div className='mx-auto max-w-7xl'>
         <div className='flex flex-col lg:flex-row-reverse gap-3 sm:gap-4 md:gap-6'>
           {/* Main Content */}
           <main className='flex-1 bg-card rounded-xl md:rounded-2xl border border-border overflow-hidden order-1 lg:order-0'>
             {/* Navigation */}
-            <nav className='flex justify-center md:justify-start gap-1 sm:gap-2 md:gap-4 p-3 sm:p-4 md:p-6 border-b border-border overflow-x-auto scrollbar-hide'>
+            <nav ref={navRef} className='flex justify-center md:justify-start gap-1 sm:gap-2 md:gap-4 p-3 sm:p-4 md:p-6 border-b border-border overflow-x-auto scrollbar-hide'>
               {translations.sections.map((section) => (
                 <button
                   key={section.id}
