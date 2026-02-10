@@ -107,7 +107,7 @@ export function MobileStickyNav({
     <div
       className="fixed top-0 left-0 right-0 z-50 lg:hidden transition-all duration-300 ease-out translate-y-0 opacity-100 animate-in slide-in-from-top"
     >
-      <div className="flex items-center border-b border-foreground/[0.08] bg-foreground/[0.06] px-2 py-2 shadow-lg backdrop-blur-xl">
+      <div className="flex items-center border-b border-border bg-card px-2 py-2 shadow-lg">
         {/* Scrollable section tabs */}
         <div className="flex-1 overflow-x-auto scrollbar-hide">
           <div className="flex items-center gap-1 px-1">
@@ -117,8 +117,8 @@ export function MobileStickyNav({
                 onClick={() => onSectionChange(s.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors whitespace-nowrap shrink-0 ${
                   activeSection === s.id
-                    ? 'text-foreground bg-foreground/10'
-                    : 'text-foreground/60 hover:text-foreground hover:bg-foreground/5'
+                    ? 'bg-accent text-accent-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
                 }`}
               >
                 {s.label}
@@ -131,24 +131,24 @@ export function MobileStickyNav({
         <div className="relative shrink-0" ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-foreground/10"
+            className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground"
             aria-label="More options"
           >
-            <MoreVertical className="h-4 w-4 text-foreground/70" />
+            <MoreVertical className="h-4 w-4 text-foreground" />
           </button>
 
           {dropdownOpen && (
             <div
-              className={`absolute ${locale === 'fa' ? 'left-0' : 'right-0'} top-full mt-1.5 min-w-[160px] rounded-xl border border-foreground/[0.08] bg-foreground/[0.06] p-1.5 shadow-xl backdrop-blur-xl`}
+              className={`absolute ${locale === 'fa' ? 'left-0' : 'right-0'} top-full mt-1.5 min-w-[160px] rounded-xl border border-border bg-card p-1.5 shadow-xl`}
             >
               <button
                 onClick={toggleTheme}
-                className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-foreground/80 transition-colors hover:bg-foreground/10"
+                className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
               >
                 {theme === 'dark' ? (
-                  <Sun className="h-3.5 w-3.5" />
+                  <Sun className="h-3.5 w-3.5 text-accent" />
                 ) : (
-                  <Moon className="h-3.5 w-3.5" />
+                  <Moon className="h-3.5 w-3.5 text-accent" />
                 )}
                 {locale === 'en'
                   ? theme === 'dark'
@@ -160,7 +160,7 @@ export function MobileStickyNav({
               </button>
               <button
                 onClick={toggleLanguage}
-                className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-foreground/80 transition-colors hover:bg-foreground/10"
+                className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
               >
                 <span className="flex h-3.5 w-3.5 items-center justify-center text-[10px] font-bold">
                   {locale === 'en' ? 'FA' : 'EN'}

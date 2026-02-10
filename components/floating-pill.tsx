@@ -84,24 +84,24 @@ export function FloatingPill({ locale, hidden = false }: FloatingPillProps) {
           : '-translate-y-[calc(100%+2rem)] opacity-0 pointer-events-none'
       }`}
     >
-      <div className="flex items-center gap-1 rounded-full border border-foreground/[0.08] bg-foreground/[0.06] px-1.5 py-1.5 shadow-lg backdrop-blur-xl">
+      <div className="flex items-center gap-1 rounded-xl bg-card border border-border px-1.5 py-1.5 shadow-lg">
         <button
           onClick={toggleTheme}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-foreground/10"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground"
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
-            <Sun className="h-4 w-4 text-foreground/80" />
+            <Sun className="h-4 w-4 text-accent" />
           ) : (
-            <Moon className="h-4 w-4 text-foreground/80" />
+            <Moon className="h-4 w-4 text-accent" />
           )}
         </button>
 
-        <div className="h-5 w-px bg-foreground/10" />
+        <div className="h-5 w-px bg-border" />
 
         <button
           onClick={toggleLanguage}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-xs font-semibold text-foreground/80 transition-colors hover:bg-foreground/10"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-xs font-semibold text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
           aria-label="Toggle language"
           title={locale === 'en' ? 'Switch to Persian' : 'Switch to English'}
         >

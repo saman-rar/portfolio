@@ -7,6 +7,7 @@ interface TechCardProps {
   yearsOfExperience: string;
   description: string;
   locale?: 'en' | 'fa';
+  onClick?: () => void;
 }
 
 const TechCard = ({
@@ -16,11 +17,18 @@ const TechCard = ({
   yearsOfExperience = 'Learning',
   description = 'Progressive framework for web development.',
   locale = 'en',
+  onClick,
 }: TechCardProps) => {
   const Icon = SkillIcons[icon];
   return (
     <div className='flex justify-center'>
-      <div className='border transition duration-100 ease-in group border-black/20 dark:border-white/15 cursor-pointer hover:border-accent/70 dark:hover:border-accent/70 flex flex-col rounded-lg overflow-hidden'>
+      <div
+        onClick={onClick}
+        role={onClick ? 'button' : undefined}
+        tabIndex={onClick ? 0 : undefined}
+        onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') onClick(); } : undefined}
+        className='border transition duration-100 ease-in group border-black/20 dark:border-white/15 cursor-pointer hover:border-accent/70 dark:hover:border-accent/70 flex flex-col rounded-lg overflow-hidden'
+      >
         <div className='relative aspect-square max-w-100 overflow-hidden flex justify-center items-center'>
           <Icon />
         </div>
