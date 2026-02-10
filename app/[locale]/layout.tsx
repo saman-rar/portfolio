@@ -1,5 +1,4 @@
-import { LanguageToggle } from '@/components/language-toggle';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { FloatingPill } from '@/components/floating-pill';
 import type React from 'react';
 
 export default async function LocaleLayout({
@@ -13,10 +12,7 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <div className='fixed top-2 right-2 md:top-3 md:right-3 z-50 flex flex-col gap-3'>
-        <ThemeToggle />
-        <LanguageToggle locale={locale} />
-      </div>
+      <FloatingPill locale={locale} />
       {children}
     </>
   );
