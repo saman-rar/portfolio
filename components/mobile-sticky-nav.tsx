@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Moon, Sun, MoreVertical } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -27,8 +27,11 @@ export function MobileStickyNav({
   onVisibilityChange,
 }: MobileStickyNavProps) {
   const [isScrolledPastNav, setIsScrolledPastNav] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
@@ -68,6 +71,33 @@ export function MobileStickyNav({
     return () => observer.disconnect();
   }, [navRef, onVisibilityChange]);
 
+  // Scroll-based show/hide
+  const handleScroll = useCallback(() => {
+    if (!ticking.current) {
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY < 10) {
+          setVisible(true);
+        } else if (currentScrollY > lastScrollY.current + 5) {
+          setVisible(false);
+          setDropdownOpen(false);
+        } else if (currentScrollY < lastScrollY.current - 5) {
+          setVisible(true);
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking.current = false;
+      });
+      ticking.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -105,7 +135,11 @@ export function MobileStickyNav({
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-50 lg:hidden transition-all duration-300 ease-out translate-y-0 opacity-100 animate-in slide-in-from-top"
+      className={`fixed top-0 left-0 right-0 z-50 lg:hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        visible
+          ? 'translate-y-0 opacity-100'
+          : '-translate-y-full opacity-0 pointer-events-none'
+      }`}
     >
       <div className="flex items-center border-b border-border bg-card px-2 py-2 shadow-lg">
         {/* Scrollable section tabs */}
