@@ -61,9 +61,9 @@ export function SkillsTabSection({ locale }: { locale: 'en' | 'fa' }) {
             const isOdd = skills.length % 2 === 1;
             const isOnly = skills.length === 1;
 
-            console.log(isLast, isOdd);
             return (
               <SkillCard
+                key={`skill-${skill.name}-${index}`}
                 locale={locale}
                 skill={skill}
                 isOddOrLast={isLast && isOdd}
