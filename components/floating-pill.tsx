@@ -84,25 +84,25 @@ export function FloatingPill({ locale, hidden = false }: FloatingPillProps) {
           : '-translate-y-[calc(100%+2rem)] opacity-0 pointer-events-none'
       }`}
     >
-      <div className="flex items-center gap-1 rounded-full bg-card border border-border px-1.5 py-1.5 shadow-lg">
+      <div className='flex items-center gap-1 rounded-full bg-card border border-border dark:border-white/12 px-1.5 py-1.5 shadow-lg dark:shadow-white/5'>
         <button
           onClick={toggleTheme}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground"
-          aria-label="Toggle theme"
+          className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground'
+          aria-label='Toggle theme'
         >
           {theme === 'dark' ? (
-            <Sun className="h-4 w-4 text-accent" />
+            <Sun className='h-4 w-4 text-accent' />
           ) : (
-            <Moon className="h-4 w-4 text-accent" />
+            <Moon className='h-4 w-4 text-accent' />
           )}
         </button>
 
-        <div className="h-5 w-px bg-border" />
+        <div className='h-5 w-px bg-border' />
 
         <button
           onClick={toggleLanguage}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-xs font-semibold text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-          aria-label="Toggle language"
+          className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-xs font-semibold text-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
+          aria-label='Toggle language'
           title={locale === 'en' ? 'Switch to Persian' : 'Switch to English'}
         >
           {locale === 'en' ? 'FA' : 'EN'}
