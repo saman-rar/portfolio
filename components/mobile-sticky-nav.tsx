@@ -149,9 +149,9 @@ export function MobileStickyNav({
         {/* Scrollable section tabs */}
         <div className='flex-1 overflow-x-auto scrollbar-hide'>
           <div className='flex items-center gap-1 px-1'>
-            {sections.map((s, idx) => (
+            {sections.map((s) => (
               <button
-                key={`section-${s.id}-${idx}`}
+                key={s.id}
                 onClick={() => onSectionChange(s.id)}
                 className={`p-3 rounded-lg text-xs font-medium capitalize transition-colors whitespace-nowrap shrink-0 ${
                   activeSection === s.id

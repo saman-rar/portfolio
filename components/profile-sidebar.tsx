@@ -23,8 +23,6 @@ export function ProfileSidebar({
               src={data.avatar || '/placeholder.svg'}
               alt={locale === 'en' ? data.enName : data.faName}
               className='w-full h-full object-cover'
-              loading='eager'
-              priority
             />
           </div>
         </div>
@@ -70,8 +68,8 @@ export function ProfileSidebar({
           </div>
         </div>
 
-        {data.options.map((option, index) => (
-          <div key={`option-${index}`} className='flex items-start gap-3'>
+        {data.options.map((option) => (
+          <div className='flex items-start gap-3'>
             <div className='w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0'>
               <option.Icon className='w-5 h-5 text-accent' />
             </div>
@@ -94,9 +92,8 @@ export function ProfileSidebar({
 
       {/* Social Links */}
       <div className='flex items-center justify-center gap-4 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-border'>
-        {data.social.map((s, index) => (
+        {data.social.map((s) => (
           <a
-            key={`social-${index}`}
             href={s.href}
             target='_blank'
             rel='noopener noreferrer'
