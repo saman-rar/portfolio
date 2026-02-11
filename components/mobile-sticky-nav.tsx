@@ -101,13 +101,17 @@ export function MobileStickyNav({
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     }
     if (dropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      return () =>
+        document.removeEventListener('mousedown', handleClickOutside);
     }
   }, [dropdownOpen]);
 
@@ -141,15 +145,15 @@ export function MobileStickyNav({
           : '-translate-y-full opacity-0 pointer-events-none'
       }`}
     >
-      <div className="flex items-center border-b border-border bg-card px-2 py-2 shadow-lg">
+      <div className='flex items-center border-b border-white/15 bg-card px-2 py-1.5 shadow-lg shadow-black/40'>
         {/* Scrollable section tabs */}
-        <div className="flex-1 overflow-x-auto scrollbar-hide">
-          <div className="flex items-center gap-1 px-1">
+        <div className='flex-1 overflow-x-auto scrollbar-hide'>
+          <div className='flex items-center gap-1 px-1'>
             {sections.map((s) => (
               <button
                 key={s.id}
                 onClick={() => onSectionChange(s.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors whitespace-nowrap shrink-0 ${
+                className={`p-3 rounded-lg text-xs font-medium capitalize transition-colors whitespace-nowrap shrink-0 ${
                   activeSection === s.id
                     ? 'bg-accent text-accent-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
@@ -162,13 +166,13 @@ export function MobileStickyNav({
         </div>
 
         {/* Three-dot dropdown for theme + language */}
-        <div className="relative shrink-0" ref={dropdownRef}>
+        <div className='relative shrink-0' ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground"
-            aria-label="More options"
+            className='flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground'
+            aria-label='More options'
           >
-            <MoreVertical className="h-4 w-4 text-foreground" />
+            <MoreVertical className='h-4 w-4 text-foreground hover:text-white' />
           </button>
 
           {dropdownOpen && (
@@ -177,12 +181,12 @@ export function MobileStickyNav({
             >
               <button
                 onClick={toggleTheme}
-                className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                className='flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
               >
                 {theme === 'dark' ? (
-                  <Sun className="h-3.5 w-3.5 text-accent" />
+                  <Sun className='h-3.5 w-3.5 text-accent' />
                 ) : (
-                  <Moon className="h-3.5 w-3.5 text-accent" />
+                  <Moon className='h-3.5 w-3.5 text-accent' />
                 )}
                 {locale === 'en'
                   ? theme === 'dark'
@@ -194,9 +198,9 @@ export function MobileStickyNav({
               </button>
               <button
                 onClick={toggleLanguage}
-                className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                className='flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
               >
-                <span className="flex h-3.5 w-3.5 items-center justify-center text-[10px] font-bold">
+                <span className='flex h-3.5 w-3.5 items-center justify-center text-[10px] font-bold'>
                   {locale === 'en' ? 'FA' : 'EN'}
                 </span>
                 {locale === 'en' ? 'Persian' : 'English'}
