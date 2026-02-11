@@ -25,8 +25,9 @@ export function ContactSection({
       </div>
 
       <div className='grid grid-cols-1 gap-3'>
-        {data.map((d) => (
+        {data.map((d, index) => (
           <a
+            key={`contact-${index}`}
             href={d.href}
             target='_blank'
             className='flex items-center group gap-3 md:gap-4 p-4 md:p-5 bg-secondary rounded-xl md:rounded-2xl border border-border hover:border-accent transition-colors group'
