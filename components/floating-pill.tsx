@@ -78,7 +78,7 @@ export function FloatingPill({ locale, hidden = false }: FloatingPillProps) {
 
   return (
     <div
-      className={`fixed top-3 right-3 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`fixed xl:absolute top-2 end-2 lg:top-4 lg:end-4 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         visible && !hidden
           ? 'translate-y-0 opacity-100'
           : '-translate-y-[calc(100%+2rem)] opacity-0 pointer-events-none'
@@ -87,13 +87,13 @@ export function FloatingPill({ locale, hidden = false }: FloatingPillProps) {
       <div className='flex items-center gap-1 rounded-full bg-card border border-border dark:border-white/12 px-1.5 py-1.5 shadow-lg dark:shadow-white/5'>
         <button
           onClick={toggleTheme}
-          className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground'
+          className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-accent text-accent dark:text-white hover:text-accent-foreground'
           aria-label='Toggle theme'
         >
           {theme === 'dark' ? (
-            <Sun className='h-4 w-4 text-accent' />
+            <Sun className='h-4 w-4' />
           ) : (
-            <Moon className='h-4 w-4 text-accent' />
+            <Moon className='h-4 w-4' />
           )}
         </button>
 
@@ -101,7 +101,7 @@ export function FloatingPill({ locale, hidden = false }: FloatingPillProps) {
 
         <button
           onClick={toggleLanguage}
-          className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-xs font-semibold text-foreground transition-colors hover:bg-accent hover:text-accent-foreground'
+          className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-xs font-semibold dark:text-white text-accent transition-colors hover:bg-accent hover:text-accent-foreground'
           aria-label='Toggle language'
           title={locale === 'en' ? 'Switch to Persian' : 'Switch to English'}
         >

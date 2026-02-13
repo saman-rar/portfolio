@@ -2,6 +2,7 @@ import { TechSection } from '@/components/tech-section';
 import { FloatingPill } from '@/components/floating-pill';
 import { techs } from '@/lib/portfolio-data';
 import { notFound } from 'next/navigation';
+import { FloatingNav } from '@/components/FloatingNav';
 
 const ProjectsPage = async ({
   params,
@@ -17,9 +18,13 @@ const ProjectsPage = async ({
   return (
     <div
       dir={locale === 'en' ? 'ltr' : 'rtl'}
-      className='min-h-screen bg-background p-3 sm:p-4 md:p-6 lg:p-12'
+      className='min-h-screen bg-background p-3 pt-12 md:pt-12 sm:p-4 md:p-6 lg:p-12'
     >
-      <FloatingPill locale={locale} />
+      <FloatingNav
+        href={`/${locale}/techs`}
+        locale={locale}
+        title={locale === 'en' ? 'Techs' : 'ابزار ها'}
+      />
       <div className='mx-auto max-w-7xl'>
         <div className='flex flex-col lg:flex-row-reverse gap-3 sm:gap-4 md:gap-6'>
           <main className='flex-1 bg-card rounded-xl md:rounded-2xl border border-border overflow-hidden'>

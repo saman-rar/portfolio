@@ -145,7 +145,7 @@ export function MobileStickyNav({
           : '-translate-y-full opacity-0 pointer-events-none'
       }`}
     >
-      <div className='flex items-center border-b border-white/15 bg-card px-2 py-1.5 shadow-lg shadow-black/40'>
+      <div className='flex items-center border-b border-white/15 bg-background/60 dark:bg-background/40 backdrop-blur-lg px-2 py-2 shadow-lg shadow-foreground/15 dark:shadow-foreground/5'>
         {/* Scrollable section tabs */}
         <div className='flex-1 overflow-x-auto scrollbar-hide'>
           <div className='flex items-center gap-1 px-1'>
@@ -156,7 +156,7 @@ export function MobileStickyNav({
                 className={`p-3 rounded-lg text-xs font-medium capitalize transition-colors whitespace-nowrap shrink-0 ${
                   activeSection === s.id
                     ? 'bg-accent text-accent-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                    : 'text-foreground hover:bg-secondary'
                 }`}
               >
                 {s.label}
