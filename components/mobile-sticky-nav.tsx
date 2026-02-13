@@ -140,12 +140,12 @@ export function MobileStickyNav({
   return (
     <div
       className={`fixed top-0 left-0 right-0 z-50 lg:hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        visible
-          ? 'translate-y-0 opacity-100'
-          : '-translate-y-full opacity-0 pointer-events-none'
+        visible ? 'translate-y-0' : '-translate-y-full pointer-events-none'
       }`}
     >
-      <div className='flex items-center border-b border-white/15 bg-background/60 dark:bg-background/40 backdrop-blur-lg px-2 py-2 shadow-lg shadow-foreground/15 dark:shadow-foreground/5'>
+      <div
+        className={`flex items-center border-b border-white/15 bg-background/60 dark:bg-background/40 px-2 py-2 shadow-lg shadow-foreground/15 dark:shadow-foreground/5 ${visible ? 'backdrop-blur-lg opacity-100' : 'backdrop-blur-none opacity-0'}`}
+      >
         {/* Scrollable section tabs */}
         <div className='flex-1 overflow-x-auto scrollbar-hide'>
           <div className='flex items-center gap-1 px-1'>

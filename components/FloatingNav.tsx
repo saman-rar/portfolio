@@ -88,11 +88,13 @@ export function FloatingNav({
     <div
       className={`fixed top-3 md:top-5 right-0 left-0 max-w-7xl md:px-15 lg:px-20 px-8 mx-auto z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         visible && !hidden
-          ? 'translate-y-0 opacity-100'
-          : '-translate-y-[calc(100%+2rem)] opacity-0 pointer-events-none'
+          ? 'translate-y-0'
+          : '-translate-y-[calc(100%+2rem)] pointer-events-none'
       }`}
     >
-      <div className='flex items-center justify-between rounded-full bg-background/70 dark:bg-background/50 backdrop-blur-sm border border-border dark:border-white/12 px-7 lg:px-10 py-2 lg:py-3 shadow-md dark:shadow-white/5'>
+      <div
+        className={`flex items-center justify-between rounded-full bg-background/70 dark:bg-background/50 border border-border dark:border-white/12 px-7 lg:px-10 py-2 lg:py-3 shadow-md dark:shadow-white/5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1) ${visible && !hidden ? 'backdrop-blur-sm opacity-100' : 'backdrop-blur-0 opacity-0'}`}
+      >
         <Link
           href={href}
           className='text-xl md:text-2xl font-semibold text-accent dark:text-white'
