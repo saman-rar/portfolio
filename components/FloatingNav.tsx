@@ -103,7 +103,7 @@ export function FloatingNav({
         </Link>
         <div className='flex items-center gap-1 md:gap-1.5 lg:gap-1.75'>
           <Link
-            href={`/${locale}`}
+            href={`/${locale}/section=${title === 'Techs' ? 'skills' : 'portfolio'}`}
             className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:text-accent'
             aria-label='Toggle theme'
           >
