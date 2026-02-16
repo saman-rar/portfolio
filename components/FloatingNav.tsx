@@ -77,10 +77,10 @@ export function FloatingNav({
   const toggleLanguage = () => {
     const newLocale = locale === 'en' ? 'fa' : 'en';
     if (section) {
-      router.push(`/${newLocale}?section=${section}`);
+      router.push(`/${newLocale}?section=${section}`, { scroll: false });
     } else {
       const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-      router.push(newPath);
+      router.push(newPath, { scroll: false });
     }
   };
 
@@ -102,13 +102,13 @@ export function FloatingNav({
           {title}
         </Link>
         <div className='flex items-center gap-1 md:gap-1.5 lg:gap-1.75'>
-          <Link
-            href={`/${locale}/section=${title === 'Techs' ? 'skills' : 'portfolio'}`}
+          <button
+            onClick={toggleLanguage}
             className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:text-accent'
             aria-label='Toggle theme'
           >
-            <Home className='h-4 w-4 md:h-5 md:w-5' />
-          </Link>
+            <Globe className='h-4 w-4 md:h-5 md:w-5' />
+          </button>
 
           <div className='h-5 w-px bg-foreground' />
 
@@ -126,13 +126,13 @@ export function FloatingNav({
 
           <div className='h-5 w-px bg-foreground' />
 
-          <button
-            onClick={toggleLanguage}
+          <Link
+            href={`/${locale}?section=${title === 'Techs' ? 'skills' : 'portfolio'}`}
             className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:text-accent'
             aria-label='Toggle theme'
           >
-            <Globe className='h-4 w-4 md:h-5 md:w-5' />
-          </button>
+            <Home className='h-4 w-4 md:h-5 md:w-5' />
+          </Link>
         </div>
       </div>
     </div>

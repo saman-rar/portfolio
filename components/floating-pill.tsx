@@ -69,10 +69,10 @@ export function FloatingPill({ locale, hidden = false }: FloatingPillProps) {
   const toggleLanguage = () => {
     const newLocale = locale === 'en' ? 'fa' : 'en';
     if (section) {
-      router.push(`/${newLocale}?section=${section}`);
+      router.push(`/${newLocale}?section=${section}`, { scroll: false });
     } else {
       const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-      router.push(newPath);
+      router.push(newPath, { scroll: false });
     }
   };
 
