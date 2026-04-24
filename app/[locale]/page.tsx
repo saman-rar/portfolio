@@ -16,7 +16,6 @@ import {
   educationData,
   faEducationData,
 } from '@/lib/portfolio-data';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/use-media-query';

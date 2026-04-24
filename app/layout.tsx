@@ -1,15 +1,38 @@
 import type React from 'react';
 import type { Metadata } from 'next';
-import { Vazirmatn } from 'next/font/google';
+import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
-const vazirmatn = Vazirmatn({
-  subsets: ['latin', 'arabic'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-vazirmatn',
+const vazirmatn = localFont({
+  src: [
+    {
+      path: '../public/fonts/Vazir-Thin.woff2',
+      weight: '200',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Vazir-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Vazir.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Vazir-Medium.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Vazir-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
 });
-
 export const metadata: Metadata = {
   title: 'Saman Faraji - Front-Stack Developer',
   description:
