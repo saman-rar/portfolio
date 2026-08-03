@@ -1,6 +1,4 @@
 <div align="center">
-  <img src="./public/professional-developer-avatar.png" alt="Saman Faraji" width="140" />
-
 Saman Faraji — Portfolio
 
 A modern, responsive, bilingual developer portfolio built with Next.js, TypeScript, and Tailwind CSS.
