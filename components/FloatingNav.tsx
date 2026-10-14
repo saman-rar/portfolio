@@ -127,7 +127,7 @@ export function FloatingNav({
           <div className='h-5 w-px bg-foreground' />
 
           <Link
-            href={`/${locale}?section=${title === 'Techs' || title === 'ابزار ها' ? 'skills' : 'portfolio'}`}
+            href={`/${locale}?section=${title === 'Techs' || title === 'ابزار ها' ? 'skills' : title === 'Blog' || title === 'وبلاگ' ? 'blog' : 'portfolio'}`}
             className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:text-accent'
             aria-label='Toggle theme'
           >

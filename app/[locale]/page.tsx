@@ -7,6 +7,7 @@ import { ResumeSection } from '@/components/resume-section';
 import { PortfolioSection } from '@/components/portfolio-section';
 import { SkillsTabSection } from '@/components/skills-tab-section';
 import { ContactSection } from '@/components/contact-section-new';
+import { BlogSection } from '@/components/blog-section';
 import { FloatingPill } from '@/components/floating-pill';
 import { MobileStickyNav } from '@/components/mobile-sticky-nav';
 import {
@@ -112,6 +113,7 @@ export default function Home({ params, searchParams }: LocalePageProps) {
               {activeSection === 'contact' && (
                 <ContactSection locale={locale} />
               )}
+              {activeSection === 'blog' && <BlogSection locale={locale} />}
             </div>
           </main>
           <ProfileSidebar data={profileData} locale={locale} />
@@ -129,6 +131,7 @@ function getEnglishTranslations() {
       { id: 'portfolio', label: 'portfolio' },
       { id: 'skills', label: 'skills' },
       { id: 'contact', label: 'contact' },
+      { id: 'blog', label: 'Blog' },
     ],
   };
 }
@@ -141,6 +144,7 @@ function getPerisanTranslations() {
       { id: 'portfolio', label: 'پروژه ها' },
       { id: 'skills', label: 'مهارت ها' },
       { id: 'contact', label: 'تماس' },
+      { id: 'blog', label: 'وبلاگ' },
     ],
   };
 }
