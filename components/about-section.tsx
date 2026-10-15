@@ -30,7 +30,9 @@ export function AboutSection({ data = aboutData, locale }: AboutSectionProps) {
         />
         <div className='space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed'>
           {data.description.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
+            <p key={index} className=''>
+              {paragraph}
+            </p>
           ))}
         </div>
       </div>
