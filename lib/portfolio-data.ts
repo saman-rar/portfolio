@@ -3,13 +3,13 @@ import { Github, Linkedin, Mail, Phone, Send } from 'lucide-react';
 export const profileData = {
   enName: 'Saman Faraji',
   faName: 'سامان فرجی',
-  enTitle: 'Front-End Developer',
+  enTitle: 'Full-Stack Developer',
   faTitle: 'برنامه‌نویس فرانت‌اند',
   avatar: '/professional-developer-avatar.png',
   email: 'samanfaraji1384@gmail.com',
   enBirthday: 'November 10, 2005',
   faBirthday: '19 آبان 1384',
-  enEducation: 'Computer science',
+  enEducation: 'Computer Engineering',
   faEducation: 'مهندسی کامپیوتر',
   options: [
     {
@@ -81,7 +81,7 @@ export const profileData = {
 
 export const aboutData = {
   description: [
-    "I'm a Front-End Developer with a solid knowledge in Back-End specializing in web development and creating innovative digital solutions. I enjoy turning complex problems into simple, beautiful and intuitive applications.",
+    "I'm a Full-Stack Developer with a solid knowledge in Back-End specializing in web development and creating innovative digital solutions. I enjoy turning complex problems into simple, beautiful and intuitive applications.",
     "My job is to build your website or application so that it is functional and user-friendly but at the same time attractive. Moreover, I add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring across your message and identity in the most creative way. I've worked with various technologies including React, Next.js, Node.js, and modern cloud platforms.",
   ],
   services: [
@@ -121,10 +121,20 @@ export const faAboutData = {
   ],
 };
 
-export const educationData = {
+export const resumeData = {
+  works: [
+    {
+      title: 'Fardad',
+      website: 'http://fardad.it/',
+      period: '2026 — now',
+      description:
+        'As a Software Developer at Fardad, I worked on the development and maintenance of enterprise software, ERP systems, and industry-specific business applications. My primary responsibility was fundamentally restructuring the frontend architecture through component-based design, extensive code refactoring, and source code reorganization to improve readability, maintainability, and scalability. I also implemented new frontend infrastructure capabilities and improved architectural patterns while contributing to backend development and database design and management.',
+    },
+  ],
   education: [
     {
       title: 'University of Qom',
+      webiste: 'https://qom.ac.ir/',
       period: '2024 — now',
       description: 'Studing Computer Engineering.',
     },
@@ -135,8 +145,18 @@ export const faEducationData = {
   education: [
     {
       title: 'دانشگاه بین المللی قم',
+      webiste: 'https://qom.ac.ir/',
       period: '1403 — الان',
       description: 'رشته مهندسی کامپیوتر',
+    },
+  ],
+  works: [
+    {
+      title: 'فناوران سپهر فرداد',
+      website: 'http://fardad.it/',
+      period: '2026 — now',
+      description:
+        'به‌عنوان برنامه‌نویس نرم‌افزار در شرکت فرداد (Fardad)، در توسعه و نگهداری نرم‌افزارهای سازمانی، ERP و نرم‌افزارهای صنفی فعالیت داشتم. تمرکز اصلی من بازطراحی بنیادی معماری فرانت‌اند، توسعه ساختار کامپوننت‌محور، ریفکتور گسترده و بازسازمان‌دهی سورس‌کد با هدف بهبود خوانایی، نگهداری و توسعه‌پذیری بود. همچنین در توسعه قابلیت‌های زیرساختی جدید فرانت‌اند و بهبود الگوهای پیاده‌سازی مشارکت داشتم و در کنار آن، وظایفی در زمینه توسعه بک‌اند و طراحی و مدیریت پایگاه داده بر عهده داشتم.',
     },
   ],
 };

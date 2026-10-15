@@ -14,7 +14,7 @@ import {
   profileData,
   aboutData,
   faAboutData,
-  educationData,
+  resumeData,
   faEducationData,
 } from '@/lib/portfolio-data';
 import { notFound } from 'next/navigation';
@@ -100,7 +100,7 @@ export default function Home({ params, searchParams }: LocalePageProps) {
               )}
               {activeSection === 'education' && (
                 <ResumeSection
-                  data={locale === 'en' ? educationData : faEducationData}
+                  data={locale === 'en' ? resumeData : faEducationData}
                   locale={locale}
                 />
               )}
