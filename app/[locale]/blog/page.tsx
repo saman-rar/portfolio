@@ -3,6 +3,7 @@ import { FloatingNav } from '@/components/FloatingNav';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { notFound } from 'next/navigation';
+import BlogDetailPage from '@/components/blog-page';
 
 const articleSlug = 'react-vs-angular-vs-vue';
 
@@ -30,14 +31,11 @@ export default async function BlogPage({
         title={locale === 'en' ? 'Blog' : 'وبلاگ'}
       />
       <div className='mx-auto max-w-7xl'>
-        <main className='overflow-hidden rounded-xl border border-border bg-card md:rounded-2xl'>
-          <BlogArticlePage
-            article={{
-              slug: articleSlug,
-              title: 'React یا Angular یا Vue؟',
-              content,
-            }}
-          />
+        <main
+          className='overflow-hidden rounded-xl border border-border bg-card md:rounded-2xl typeset'
+          dir='rtl'
+        >
+          <BlogDetailPage />
         </main>
       </div>
     </div>
